@@ -18,7 +18,7 @@ public class AppWindow extends JFrame{
     private JMenuItem fast;
     private JButton start;
     private JButton goal;
-    private JButton stop;
+    private JButton clear;
     private JButton search;
     private JTextField status;
     public static String title = "Artificial Intelligence";
@@ -85,14 +85,14 @@ public class AppWindow extends JFrame{
         search.addActionListener(buttonHandler);
         add(search, searchConstraints);
 
-        stop = new JButton("Stop");
+        clear = new JButton("Clear");
         GridBagConstraints stopConstraints = new GridBagConstraints();
         stopConstraints.fill = GridBagConstraints.HORIZONTAL;
         stopConstraints.gridx = 1;
         stopConstraints.gridy = 0;
         stopConstraints.weightx =0.5;
-        stop.addActionListener(buttonHandler);
-        add(stop, stopConstraints);
+        clear.addActionListener(buttonHandler);
+        add(clear, stopConstraints);
 
         start = new JButton("Set Start");
         GridBagConstraints startConstraints = new GridBagConstraints();
@@ -115,7 +115,6 @@ public class AppWindow extends JFrame{
         /*
         * Set up graph
         */
-        GraphViewHandler.initGraph();
         GridBagConstraints graphConstraints = new GridBagConstraints();
         graphConstraints.fill = GridBagConstraints.BOTH;
         graphConstraints.gridx = 0;
@@ -124,7 +123,7 @@ public class AppWindow extends JFrame{
         graphConstraints.weighty = 0.5;
         graphConstraints.gridwidth = 4;
         graphConstraints.gridheight = GridBagConstraints.RELATIVE;
-        add(GraphViewHandler.getViewPanel(), graphConstraints);
+        add(AppGraph.init(), graphConstraints);
         /*
         * Set up status bar below
         */
@@ -151,8 +150,8 @@ public class AppWindow extends JFrame{
         return goal;
     }
 
-    public JButton getStop() {
-        return stop;
+    public JButton getClear() {
+        return clear;
     }
 
     public JButton getSearch() {
@@ -180,10 +179,36 @@ public class AppWindow extends JFrame{
     }
 
     /*
-        * Change title to reflect current algorithm
-        */
+    * Change title to reflect current algorithm
+    */
     public void changeTitle(String newTitle) {
         title = newTitle;
         setTitle(newTitle);
+    }
+
+    public void allStatus(boolean flag){
+        start.setEnabled(flag);
+        goal.setEnabled(flag);
+        clear.setEnabled(flag);
+        search.setEnabled(flag);
+        slow.setEnabled(flag);
+        moderate.setEnabled(flag);
+        fast.setEnabled(flag);
+        for(int i = 0; i < algorithm.length; i++){
+            algorithm[i].setEnabled(flag);
+        }
+    }
+
+    public void disableExceptClear(){
+        start.setEnabled(false);
+        goal.setEnabled(false);
+        search.setEnabled(false);
+        clear.setEnabled(true);
+        slow.setEnabled(false);
+        moderate.setEnabled(false);
+        fast.setEnabled(false);
+        for(int i = 0; i < algorithm.length; i++){
+            algorithm[i].setEnabled(false);
+        }
     }
 }

@@ -1,6 +1,7 @@
 package ai.kaba;
 
 import org.apache.commons.lang3.text.WordUtils;
+import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 
@@ -24,20 +25,22 @@ public class ButtonHandler implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
         /* Set up appropriate boolean */
-        if(actionEvent.getSource() == appWindow.getStart()){
+        if (actionEvent.getSource() == appWindow.getStart()) {
             String type = "start";
             showDialog(type);
         }
-        if(actionEvent.getSource() == appWindow.getGoal()){
+        if (actionEvent.getSource() == appWindow.getGoal()) {
             String type = "goal";
             showDialog(type);
         }
         /* Call appropriate algorithm */
-        if(actionEvent.getSource() == appWindow.getSearch()){
+        if (actionEvent.getSource() == appWindow.getSearch()) {
             switch (AppWindow.searchNumber) {
                 case 0:
+                    appWindow.allStatus(false);
+                    appWindow.getStatus().setText("Running " + AppWindow.algorithmString[AppWindow.searchNumber] + "...");
                     BFSAlgorithm bfsAlgorithm = new BFSAlgorithm(appWindow);
-                    bfsAlgorithm.init(GraphViewHandler.getGraph());
+                    bfsAlgorithm.init(AppGraph.getGraph());
                     bfsAlgorithm.compute();
                     break;
                 case 1:
@@ -50,28 +53,45 @@ public class ButtonHandler implements ActionListener {
                     break;
             }
         }
-        if(actionEvent.getSource() == appWindow.getStop()){
-            try{
-                JOptionPane.showMessageDialog(appWindow, "You stopped search Algorithm: " + AppWindow.algorithmString[AppWindow.searchNumber] );
-            } catch (IndexOutOfBoundsException exception){
-                JOptionPane.showMessageDialog(appWindow, "Oga Why you tryna stop something you never started" );
+        if (actionEvent.getSource() == appWindow.getClear()) {
+            int choice = JOptionPane.showConfirmDialog(appWindow, "Are you sure you want to clear graph?", "Clear Graph",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (choice == 0) {
+                clearGraph();
+                appWindow.allStatus(true);
             }
         }
+    }
+
+    private void clearGraph() {
+        Graph graph = AppGraph.getGraph();
+        for (Node node : graph) {
+            node.removeAttribute("ui.class");
+            node.removeAttribute("visited?");
+            node.removeAttribute("level");
+            node.removeAttribute("parent");
+        }
+        for (Edge edge : graph.getEdgeSet()) {
+            edge.removeAttribute("ui.color");
+            edge.removeAttribute("ui.class");
+        }
+        appWindow.getStatus().setText("Cleared!");
     }
 
     /*
     * Show dialog box to display Nodes to select
     */
     private void showDialog(String type) {
-        Graph graph =  GraphViewHandler.getGraph();
+        Graph graph = AppGraph.getGraph();
         String[] nodeLabels = new String[graph.getNodeCount()];
         int count = 0;
         for (Node node : graph) {
             nodeLabels[count] = node.getId();
             count++;
         }
-        Object selected = JOptionPane.showInputDialog(appWindow, "Select a node from the list", WordUtils.capitalize(type) + " Node", JOptionPane.PLAIN_MESSAGE, null, nodeLabels, nodeLabels[0]);
-        if(selected != null){
+        Object selected = JOptionPane.showInputDialog(appWindow, "Select a node from the list", WordUtils.capitalize(type) +
+                " Node", JOptionPane.PLAIN_MESSAGE, null, nodeLabels, nodeLabels[0]);
+        if (selected != null) {
             setNode((String) selected, graph, type);
         }
     }
@@ -81,11 +101,11 @@ public class ButtonHandler implements ActionListener {
     */
     private void setNode(String selected, Graph graph, String type) {
         for (Node node : graph) {
-            if(Objects.equals(node.getAttribute("ui.class", String.class), type)){
+            if (Objects.equals(node.getAttribute("ui.class", String.class), type)) {
                 node.removeAttribute("ui.class");
             }
         }
         graph.getNode(selected).addAttribute("ui.class", type);
-        appWindow.getStatus().setText(WordUtils.capitalize(type) + " node set to: " +graph.getNode(selected).getId());
+        appWindow.getStatus().setText(WordUtils.capitalize(type) + " node set to: " + graph.getNode(selected).getId());
     }
 }
