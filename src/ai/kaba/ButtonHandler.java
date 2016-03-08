@@ -38,12 +38,17 @@ public class ButtonHandler implements ActionListener {
             switch (AppWindow.searchNumber) {
                 case 0:
                     appWindow.allStatus(false);
-                    appWindow.getStatus().setText("Running " + AppWindow.algorithmString[AppWindow.searchNumber] + "...");
+                    appWindow.changeStatus("Running " + AppWindow.algorithmString[AppWindow.searchNumber] + "...");
                     BFSAlgorithm bfsAlgorithm = new BFSAlgorithm(appWindow);
                     bfsAlgorithm.init(AppGraph.getGraph());
                     bfsAlgorithm.compute();
                     break;
                 case 1:
+                    appWindow.allStatus(false);
+                    appWindow.changeStatus("Running " + AppWindow.algorithmString[AppWindow.searchNumber] + "...");
+                    DFSAlgorithm dfsAlgorithm = new DFSAlgorithm(appWindow);
+                    dfsAlgorithm.init(AppGraph.getGraph());
+                    dfsAlgorithm.compute();
                     break;
                 case 2:
                     break;
@@ -83,11 +88,18 @@ public class ButtonHandler implements ActionListener {
     */
     private void showDialog(String type) {
         Graph graph = AppGraph.getGraph();
-        String[] nodeLabels = new String[graph.getNodeCount()];
-        int count = 0;
+        int defaultGoal = 0;
+        if(Objects.equals("goal", type)){
+            defaultGoal = 1;
+        }
+        String[] nodeLabels = new String[graph.getNodeCount() + defaultGoal];
+        int count = defaultGoal;
         for (Node node : graph) {
             nodeLabels[count] = node.getId();
             count++;
+        }
+        if(Objects.equals("goal", type)){
+            nodeLabels[0] = "Goal not in graph";
         }
         Object selected = JOptionPane.showInputDialog(appWindow, "Select a node from the list", WordUtils.capitalize(type) +
                 " Node", JOptionPane.PLAIN_MESSAGE, null, nodeLabels, nodeLabels[0]);
@@ -105,7 +117,11 @@ public class ButtonHandler implements ActionListener {
                 node.removeAttribute("ui.class");
             }
         }
-        graph.getNode(selected).addAttribute("ui.class", type);
-        appWindow.getStatus().setText(WordUtils.capitalize(type) + " node set to: " + graph.getNode(selected).getId());
+        try {
+            graph.getNode(selected).addAttribute("ui.class", type);
+            appWindow.getStatus().setText(WordUtils.capitalize(type) + " node set to: " + graph.getNode(selected).getId());
+        } catch (NullPointerException e){
+            appWindow.getStatus().setText(WordUtils.capitalize(type) + " node set to: Non existent goal");
+        }
     }
 }

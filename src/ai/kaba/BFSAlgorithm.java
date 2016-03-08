@@ -1,19 +1,13 @@
 package ai.kaba;
 
-import org.graphstream.algorithm.Algorithm;
 import org.graphstream.graph.Edge;
-import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Yusuf on 3/4/2016
@@ -43,125 +37,31 @@ import java.util.concurrent.ExecutionException;
  * i++
  * frontier = next
  */
-public class BFSAlgorithm implements Algorithm, ActionListener{
-
-    private Node startNode;
-    private Node goalNode;
-    private AppWindow appWindow;
-    private LinkedList<Node> pathToGoal;
-    private boolean executeTask;
-    private Timer timer;
+public class BFSAlgorithm extends AbstractBlindSearch{
 
     public BFSAlgorithm(AppWindow appWindow) {
-        this.appWindow = appWindow;
+        super(appWindow);
     }
 
     @Override
-    public void init(Graph graph) {
+    public void sortEdges(List<Edge> edges, Node reference) {
+        Collections.sort(edges, (first, second) -> first.getOpposite(reference).getId().compareTo(second.getOpposite(reference).getId()));
+    }
 
-        boolean startExists = false;
-        boolean goalExists = false;
-        for (Node node : graph) {
-            if (Objects.equals(node.getAttribute("ui.class", String.class), "start")) {
-                startNode = node;
-                startExists = true;
-            }
-            if (Objects.equals(node.getAttribute("ui.class", String.class), "goal")) {
-                goalNode = node;
-                goalExists = true;
-            }
-        }
+    @Override
+    public AbstractBlindSearch.SearchTask getSearchTask() {
+        return  new SearchTask();
+    }
 
+    @Override
+    public void initializeTimer() {
         timer = new Timer(AppWindow.speed, this);
-
-        executeTask = (goalExists && startExists);
     }
 
-    @Override
-    public void compute() {
-        if(executeTask){
-            new BFSTask().execute();
-        } else {
-            JOptionPane.showMessageDialog(appWindow, "Oga Select Start AND Goal nodes", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent actionEvent) {
-        Node nextNode = pathToGoal.removeLast();
-        Edge visitedEdge = nextNode.getEdgeBetween(nextNode.getAttribute("parent", Node.class));
-        visitedEdge.setAttribute("ui.color", 1);
-        if(nextNode == startNode || pathToGoal.size() == 0){
-            timer.stop();
-            appWindow.getStatus().setText("Done running " + AppWindow.algorithmString[AppWindow.searchNumber]  + ".");
-            appWindow.disableExceptClear();
-        }
-    }
-
-    private void startTimer(){
-        timer.start();
-    }
-
-    private class BFSTask extends SwingWorker<LinkedList<Node>, Node>{
-        private ArrayList<Node> visitedList;
-        private int visitedIndex = 0;
-        private boolean traversalDone = false;
-        private Timer traversal = new Timer(AppWindow.speed, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                Node lastVisited = visitedList.get(visitedIndex);
-                Edge visitedEdge = lastVisited.getEdgeBetween(lastVisited.getAttribute("parent", Node.class));
-                visitedEdge.setAttribute("ui.color", 0.5);
-                visitedIndex++;
-                if(visitedIndex >= visitedList.size()){
-                    traversal.stop();
-                    traversalDone = true;
-                    startTimer();
-                }
-            }
-        });
-
-        @Override
-        protected LinkedList<Node> doInBackground() throws Exception {
-            Node found = publishNodeBreadthFirst(startNode, goalNode);
-            if (found != null) {
-                return getPathToGoal(found);
-            } else{
-                return null;
-            }
-        }
-
-        @Override
-        protected void process(List<Node> list) {
-            visitedList = (ArrayList<Node>) list;
-            traversal.start();
-        }
-
-        @Override
-        protected void done() {
-            try {
-                pathToGoal = get();
-                if(traversalDone){
-                    startTimer();
-                }
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-        }
-
-        private LinkedList<Node> getPathToGoal(Node found) {
-            LinkedList<Node> path = new LinkedList<>();
-            Node parent = found.getAttribute("parent");
-            path.addLast(found);
-            while (parent != startNode){
-                path.addLast(parent);
-                parent = parent.getAttribute("parent");
-            }
-            return path;
-        }
-
+    protected class SearchTask extends AbstractBlindSearch.SearchTask{
         @Nullable
-        private Node publishNodeBreadthFirst(Node start, Node goal){
+        @Override
+        protected Node publishNode(Node start, Node goal){
             start.setAttribute("parent", "null");
             start.setAttribute("level", 0);
             start.setAttribute("visited?");
@@ -169,7 +69,7 @@ public class BFSAlgorithm implements Algorithm, ActionListener{
             int level = 1;
             queueFrontier.addLast(start);
             while (!queueFrontier.isEmpty()) {
-                System.out.println("Level: " + (level - 1));
+                System.out.println("Level " + (level - 1)+": "+ queueFrontier.toString());
                 LinkedList<Node> next = new LinkedList<>();
                 for (Node node : queueFrontier) {
                     if (node == goal) {
@@ -181,7 +81,9 @@ public class BFSAlgorithm implements Algorithm, ActionListener{
                     if (node != start){
                         publish(node);
                     }
-                    for (Edge edge : node.getEdgeSet()) {
+                    LinkedList<Edge> edges = new LinkedList<>(node.getEdgeSet());
+                    sortEdges(edges, node);
+                    for (Edge edge : edges) {
                         Node opposite = edge.getOpposite(node);
                         if (!opposite.hasAttribute("visited?")) {
                             System.out.print(opposite.getId() + " enqueued \t");
@@ -198,7 +100,6 @@ public class BFSAlgorithm implements Algorithm, ActionListener{
             }
             return null;
         }
-
     }
 
 }

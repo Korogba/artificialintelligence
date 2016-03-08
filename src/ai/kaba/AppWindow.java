@@ -25,7 +25,7 @@ public class AppWindow extends JFrame{
     public static String[] algorithmString = {"Breadth First Search", "Depth First Search", "Hill Climbing", "A*"};
     public static int searchNumber = -1;
     public static String statusBar = "status";
-    public static int speed = 4000;
+    public static int speed = 500;
 
     /*
     * Constructor for displaying application window
@@ -186,6 +186,13 @@ public class AppWindow extends JFrame{
         setTitle(newTitle);
     }
 
+    /*
+    * Change title to reflect current algorithm
+    */
+    public void changeStatus(String newStatus) {
+        status.setText(newStatus);
+    }
+
     public void allStatus(boolean flag){
         start.setEnabled(flag);
         goal.setEnabled(flag);
@@ -194,8 +201,8 @@ public class AppWindow extends JFrame{
         slow.setEnabled(flag);
         moderate.setEnabled(flag);
         fast.setEnabled(flag);
-        for(int i = 0; i < algorithm.length; i++){
-            algorithm[i].setEnabled(flag);
+        for (JMenuItem anAlgorithm : algorithm) {
+            anAlgorithm.setEnabled(flag);
         }
     }
 
@@ -207,8 +214,8 @@ public class AppWindow extends JFrame{
         slow.setEnabled(false);
         moderate.setEnabled(false);
         fast.setEnabled(false);
-        for(int i = 0; i < algorithm.length; i++){
-            algorithm[i].setEnabled(false);
+        for (JMenuItem anAlgorithm : algorithm) {
+            anAlgorithm.setEnabled(false);
         }
     }
 }
