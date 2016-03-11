@@ -15,15 +15,17 @@ import java.util.concurrent.ExecutionException;
  * Created by Yusuf on 3/8/2016.
  * Superclass of Breadth First and Depth First searches
  */
-public abstract class AbstractBlindSearch extends AbstractAlgorithm implements ActionListener {
+public abstract class AbstractGraphicSearch extends AbstractAlgorithm implements ActionListener {
 
-    public AbstractBlindSearch(AppWindow appWindow) {
+    public AbstractGraphicSearch(AppWindow appWindow) {
         super(appWindow);
     }
 
     @Override
     public void compute() {
         if(isExecuteTask()){
+            getAppWindow().allStatus(false);
+            getAppWindow().changeStatus("Running " + AppWindow.algorithmString[AppWindow.searchNumber] + "...");
             getSearchTask().execute();
         } else {
             JOptionPane.showMessageDialog(getAppWindow(), "Oga Select Start AND Goal nodes", "Error", JOptionPane.ERROR_MESSAGE);
@@ -58,7 +60,7 @@ public abstract class AbstractBlindSearch extends AbstractAlgorithm implements A
                 if(visitedIndex >= visitedList.size()){
                     traversal.stop();
                     traversalDone = true;
-                    if(AbstractBlindSearch.this.getPathToGoal() != null){
+                    if(AbstractGraphicSearch.this.getPathToGoal() != null){
                         startTimer();
                     }
                 }
@@ -84,11 +86,11 @@ public abstract class AbstractBlindSearch extends AbstractAlgorithm implements A
         @Override
         protected void done() {
             try {
-                AbstractBlindSearch.this.pathToGoal = get();
-                if(traversalDone && AbstractBlindSearch.this.getPathToGoal() != null){
+                AbstractGraphicSearch.this.pathToGoal = get();
+                if(traversalDone && AbstractGraphicSearch.this.getPathToGoal() != null){
                     startTimer();
                 }
-                if(AbstractBlindSearch.this.getPathToGoal() == null){
+                if(AbstractGraphicSearch.this.getPathToGoal() == null){
                     throw new NullPointerException("Goal Not Found.");
                 }
             } catch (InterruptedException | ExecutionException e) {
@@ -112,6 +114,11 @@ public abstract class AbstractBlindSearch extends AbstractAlgorithm implements A
         }
 
         protected abstract Node publishNode(Node start, Node goal);
+    }
+
+    @Override
+    public void initializeTimer() {
+        timer = new Timer(AppWindow.speed, this);
     }
 
     private void startTimer(){

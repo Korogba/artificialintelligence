@@ -9,40 +9,45 @@ import java.util.*;
 
 /**
  * Created by Yusuf on 3/4/2016
- * Depth First Search Algorithm: Same as Breadth First Search except a stack data structure is used as the frontier node
+ * Depth First Search Algorithm: same as Breadth First Search except a stack data structure is used as the frontier node
  * <p>
  * parameters: Node startNode, Node GoalNode(Nullable)
  * Start:
- * startNode.parent = null
- * startNode.level = 0
- * startNode: mark as visited
- * Stack frontier
- * int i = 1
- * frontier.add(startNode)
- * while(!empty(frontier))
- * Queue next
- * for(Node current in frontier)
- * Node current = dequeue(frontier)
- * //At this point, do manipulations with current: Print to screen, add to search tree, add to search path or whatever
- * if(current == goal)
- * return;
- * for(Node siblings OF current)
- * if(sibling not visited)
- * sibling.level = i
- * addSiblingToLevel(sibling)
- * sibling.parent = current
- * next.add(sibling)
- * i++
- * frontier = next
+ *      startNode.parent = null
+ *      startNode.level = 0
+ *      startNode: mark as visited
+ *      Stack frontier
+ *      int i = 1
+ *      frontier.add(startNode)
+ *      while(!empty(frontier))
+ *          initialize Queue next
+ *          for(Node current in frontier)
+ *              Node current = dequeue(frontier)
+ *              //At this point, do manipulations with current: Print to screen, add to search tree, add to search path or whatever
+ *              if(current == goal)
+ *                  return;
+ *              for(Node siblings OF current)
+ *                  if(sibling not visited)
+ *                      sibling.level = i
+ *                      addSiblingToLevel(sibling)
+ *                      sibling.parent = current
+ *                      next.add(sibling)
+ *                      i++
+*                   endif
+ *              endfor
+ *              frontier = next
+ *          endfor
+ *      endwhile
+ *      return null //node not found
  */
-public class DFSAlgorithm extends AbstractBlindSearch {
+public class DFSAlgorithm extends AbstractGraphicSearch {
 
     public DFSAlgorithm(AppWindow appWindow) {
         super(appWindow);
     }
 
     @Override
-    public AbstractBlindSearch.SearchTask getSearchTask() {
+    public AbstractGraphicSearch.SearchTask getSearchTask() {
         return  new SearchTask();
     }
 
@@ -51,12 +56,7 @@ public class DFSAlgorithm extends AbstractBlindSearch {
         Collections.sort(edges, (first, second) -> second.getOpposite(reference).getId().compareTo(first.getOpposite(reference).getId()));
     }
 
-    @Override
-    public void initializeTimer() {
-        timer = new Timer(AppWindow.speed, this);
-    }
-
-    private class SearchTask extends AbstractBlindSearch.SearchTask{
+    private class SearchTask extends AbstractGraphicSearch.SearchTask{
         @Override
         @Nullable
         protected Node publishNode(Node start, Node goal) {
@@ -73,7 +73,7 @@ public class DFSAlgorithm extends AbstractBlindSearch {
                     publish(node);
                     return node;
                 }
-                System.out.print(node.getId() + " visited \t");
+                System.out.print(node.getId() + " visited, \t");
                 if (node != start) {
                     publish(node);
                 }

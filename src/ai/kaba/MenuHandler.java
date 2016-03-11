@@ -42,6 +42,7 @@ public class MenuHandler implements ActionListener {
         for (JMenuItem algorithm : algorithms) {
             if (actionEvent.getSource() == algorithm) {
                 appWindow.changeTitle("Artificial Intelligence: " + algorithm.getText());
+                appWindow.changeStatus("Algorithm change: " + algorithm.getText());
                 AppWindow.searchNumber = count;
                 break;
             }

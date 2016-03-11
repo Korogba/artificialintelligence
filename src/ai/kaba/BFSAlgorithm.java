@@ -11,33 +11,38 @@ import java.util.List;
 
 /**
  * Created by Yusuf on 3/4/2016
+ *
  * Breadth First Search Algorithm
- * <p>
  * parameters: Node startNode, Node GoalNode(Nullable)
  * Start:
- * startNode.parent = null
- * startNode.level = 0
- * startNode: mark as visited
- * Queue frontier
- * int i = 1
- * frontier.add(startNode)
- * while(!empty(frontier))
- * Queue next
- * for(Node current in frontier)
- * Node current = dequeue(frontier)
- * //At this point, do manipulations with current: Print to screen, add to search tree, add to search path or whatever
- * if(current == goal)
- * return;
- * for(Node siblings OF current)
- * if(sibling not visited)
- * sibling.level = i
- * addSiblingToLevel(sibling)
- * sibling.parent = current
- * next.add(sibling)
- * i++
- * frontier = next
+ *      startNode.parent = null
+ *      startNode.level = 0
+ *      startNode: mark as visited
+ *      Queue frontier
+ *      int i = 1
+ *      frontier.add(startNode)
+ *      while(!empty(frontier))
+ *          Queue next
+ *          for(Node current in frontier)
+ *              Node current = dequeue(frontier)
+ *              //At this point, do manipulations with current: Print to screen, add to search tree, add to search path or whatever
+ *              if(current == goal)
+ *                  return;
+ *              for(Node siblings OF current)
+ *                  if(sibling not visited)
+ *                      sibling.level = i
+ *                      addSiblingToLevel(sibling)
+ *                      sibling.parent = current
+ *                      next.add(sibling)
+ *                      i++
+ *                  endif
+ *              endfor
+ *          frontier = next
+ *          endfor
+ *      endwhile
+ *      return null //Node not found
  */
-public class BFSAlgorithm extends AbstractBlindSearch{
+public class BFSAlgorithm extends AbstractGraphicSearch {
 
     public BFSAlgorithm(AppWindow appWindow) {
         super(appWindow);
@@ -49,16 +54,11 @@ public class BFSAlgorithm extends AbstractBlindSearch{
     }
 
     @Override
-    public AbstractBlindSearch.SearchTask getSearchTask() {
+    public AbstractGraphicSearch.SearchTask getSearchTask() {
         return  new SearchTask();
     }
 
-    @Override
-    public void initializeTimer() {
-        timer = new Timer(AppWindow.speed, this);
-    }
-
-    protected class SearchTask extends AbstractBlindSearch.SearchTask{
+    protected class SearchTask extends AbstractGraphicSearch.SearchTask{
         @Nullable
         @Override
         protected Node publishNode(Node start, Node goal){

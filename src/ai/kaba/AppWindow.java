@@ -22,7 +22,7 @@ public class AppWindow extends JFrame{
     private JButton search;
     private JTextField status;
     public static String title = "Artificial Intelligence";
-    public static String[] algorithmString = {"Breadth First Search", "Depth First Search", "Hill Climbing", "A*"};
+    public static String[] algorithmString = {"Breadth First Search", "Depth First Search", "A*", "Hill Climbing"};
     public static int searchNumber = -1;
     public static String statusBar = "status";
     public static int speed = 500;

@@ -37,24 +37,25 @@ public class ButtonHandler implements ActionListener {
         if (actionEvent.getSource() == appWindow.getSearch()) {
             switch (AppWindow.searchNumber) {
                 case 0:
-                    appWindow.allStatus(false);
-                    appWindow.changeStatus("Running " + AppWindow.algorithmString[AppWindow.searchNumber] + "...");
                     BFSAlgorithm bfsAlgorithm = new BFSAlgorithm(appWindow);
                     bfsAlgorithm.init(AppGraph.getGraph());
                     bfsAlgorithm.compute();
                     break;
                 case 1:
-                    appWindow.allStatus(false);
-                    appWindow.changeStatus("Running " + AppWindow.algorithmString[AppWindow.searchNumber] + "...");
                     DFSAlgorithm dfsAlgorithm = new DFSAlgorithm(appWindow);
                     dfsAlgorithm.init(AppGraph.getGraph());
                     dfsAlgorithm.compute();
                     break;
                 case 2:
+                    AStarAlgorithm aStarAlgorithm = new AStarAlgorithm(appWindow);
+                    aStarAlgorithm.init(AppGraph.getGraph());
+                    aStarAlgorithm.compute();
                     break;
                 case 3:
                     break;
                 default:
+                    JOptionPane.showMessageDialog(appWindow, "Oga, please ensure an appropriate search algorithm is selected from the menu",
+                            "Error", JOptionPane.ERROR_MESSAGE);
                     break;
             }
         }
@@ -80,7 +81,7 @@ public class ButtonHandler implements ActionListener {
             edge.removeAttribute("ui.color");
             edge.removeAttribute("ui.class");
         }
-        appWindow.getStatus().setText("Cleared!");
+        appWindow.getStatus().setText("Graph cleared!");
     }
 
     /*
