@@ -60,6 +60,7 @@ public class AStarAlgorithm extends AbstractGraphicSearch implements CostInterfa
     }
 
     @Override
+    //Get Proper Admissible, Monotonic Heuristic: This is not optimal!
     public int heuristic(Node currentNode, Node goalNode) {
         if(currentNode == goalNode) {
             return 0;
