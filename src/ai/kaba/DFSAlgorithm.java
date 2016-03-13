@@ -4,7 +4,6 @@ import org.graphstream.graph.Edge;
 import org.graphstream.graph.Node;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.Timer;
 import java.util.*;
 
 /**

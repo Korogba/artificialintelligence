@@ -44,6 +44,7 @@ public class MenuHandler implements ActionListener {
                 appWindow.changeTitle("Artificial Intelligence: " + algorithm.getText());
                 appWindow.changeStatus("Algorithm change: " + algorithm.getText());
                 AppWindow.searchNumber = count;
+                AppWindow.selectAppropriateGraph(count);
                 break;
             }
             count++;

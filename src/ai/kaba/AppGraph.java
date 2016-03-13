@@ -4,6 +4,7 @@ import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 import org.graphstream.graph.implementations.SingleGraph;
 import org.graphstream.stream.file.FileSource;
+import org.graphstream.stream.file.FileSourceDGS;
 import org.graphstream.stream.file.FileSourceDOT;
 import org.graphstream.ui.swingViewer.ViewPanel;
 import org.graphstream.ui.view.Viewer;
@@ -22,7 +23,7 @@ public class AppGraph {
     /*
     *Initialize graph with edges and nodes
     */
-    public static ViewPanel init(){
+    public static ViewPanel init(String graphName, boolean isDGS){
 
         graph.addAttribute("ui.stylesheet", styleSheet);
         graph.setAutoCreate(true);
@@ -30,7 +31,7 @@ public class AppGraph {
         graph.addAttribute("ui.quality");
         graph.addAttribute("ui.antialias");
 
-        initGraph();
+        initGraph(graphName, isDGS);
 
         initNodes(graph);
 
@@ -44,14 +45,18 @@ public class AppGraph {
         return viewer.addDefaultView(false);
     }
 
-    private static void initGraph(){
-        FileSource fs = new FileSourceDOT();
-        String graph_filename = "graph.gv";
-        String absolute_path = System.getProperty("user.home") + File.separator + graph_filename;
+    private static void initGraph(String graphName, boolean isDGS){
+        FileSource fs;
+        if(isDGS){
+            fs = new FileSourceDGS();
+        } else {
+            fs = new FileSourceDOT();
+        }
+        String absolute_path = System.getProperty("user.home") + File.separator + graphName;
         fs.addSink(graph);
         try {
             fs.readAll(absolute_path);
-        } catch (IOException | NullPointerException e) {
+        } catch (IOException | NullPointerException e ) {
             e.printStackTrace();
         } finally {
             fs.removeSink(graph);

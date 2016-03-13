@@ -1,6 +1,7 @@
 package ai.kaba;
 
 import org.graphstream.graph.Edge;
+import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -17,8 +19,36 @@ import java.util.concurrent.ExecutionException;
  */
 public abstract class AbstractGraphicSearch extends AbstractAlgorithm implements ActionListener {
 
+    private Node startNode;
+    private Node goalNode;
+    private boolean executeTask;
+    protected Timer timer;
+
     public AbstractGraphicSearch(AppWindow appWindow) {
         super(appWindow);
+    }
+
+    @Override
+    public void init(Graph graph) {
+        boolean startExists = false;
+        boolean goalExists = false;
+        for (Node node : graph) {
+            if (Objects.equals(node.getAttribute("ui.class", String.class), "start")) {
+                startNode = node;
+                startExists = true;
+            }
+            if (Objects.equals(node.getAttribute("ui.class", String.class), "goal")) {
+                goalNode = node;
+                goalExists = true;
+            }
+        }
+        if(!goalExists){
+            goalNode = graph.nodeFactory().newInstance("-1", null);
+        }
+
+        initializeTimer();
+
+        executeTask = (startExists);
     }
 
     @Override
@@ -116,7 +146,6 @@ public abstract class AbstractGraphicSearch extends AbstractAlgorithm implements
         protected abstract Node publishNode(Node start, Node goal);
     }
 
-    @Override
     public void initializeTimer() {
         timer = new Timer(AppWindow.speed, this);
     }
@@ -128,4 +157,20 @@ public abstract class AbstractGraphicSearch extends AbstractAlgorithm implements
     public abstract SearchTask getSearchTask();
 
     public abstract void sortEdges(List<Edge> edges, Node reference);
+
+    public boolean isExecuteTask() {
+        return executeTask;
+    }
+
+    public Timer getTimer() {
+        return timer;
+    }
+
+    public Node getStartNode() {
+        return startNode;
+    }
+
+    public Node getGoalNode() {
+        return goalNode;
+    }
 }

@@ -11,7 +11,6 @@ public class AppWindow extends JFrame{
     /*
     * Initialize gui components
     */
-    //private DrawGraph graph;
     private JMenuItem[] algorithm;
     private JMenuItem slow;
     private JMenuItem moderate;
@@ -21,8 +20,11 @@ public class AppWindow extends JFrame{
     private JButton clear;
     private JButton search;
     private JTextField status;
+    private static boolean tsp;
+    private static boolean firstDraw = true;
+    private static JPanel graphPanel = new JPanel(new GridLayout(1,1));
     public static String title = "Artificial Intelligence";
-    public static String[] algorithmString = {"Breadth First Search", "Depth First Search", "A*", "Hill Climbing"};
+    public static String[] algorithmString = {"Breadth First Search", "Depth First Search", "A*", "Simulated Annealing"};
     public static int searchNumber = -1;
     public static String statusBar = "status";
     public static int speed = 500;
@@ -123,7 +125,7 @@ public class AppWindow extends JFrame{
         graphConstraints.weighty = 0.5;
         graphConstraints.gridwidth = 4;
         graphConstraints.gridheight = GridBagConstraints.RELATIVE;
-        add(AppGraph.init(), graphConstraints);
+        add(graphPanel, graphConstraints);
         /*
         * Set up status bar below
         */
@@ -178,6 +180,18 @@ public class AppWindow extends JFrame{
         return fast;
     }
 
+    public static void selectAppropriateGraph(int number) {
+        if(searchNumber == 3 && !tsp){
+            searchNumber = number;
+            setGraphPanel("dgsGraph.dgs", true);
+            tsp = true;
+        } else if(tsp) {
+            searchNumber = number;
+            setGraphPanel("graph.gv", false);
+            tsp = false;
+        }
+    }
+
     /*
     * Change title to reflect current algorithm
     */
@@ -217,5 +231,18 @@ public class AppWindow extends JFrame{
         for (JMenuItem anAlgorithm : algorithm) {
             anAlgorithm.setEnabled(false);
         }
+    }
+
+    public static void setGraphPanel(String graphName, boolean isDGS){
+        if(firstDraw){
+            graphPanel.add(AppGraph.init(graphName, isDGS));
+            firstDraw = false;
+            return;
+        }
+        AppGraph.getGraph().clear();
+        graphPanel.remove(0);
+        graphPanel.add(AppGraph.init(graphName, isDGS));
+        graphPanel.validate();
+        graphPanel.repaint();
     }
 }

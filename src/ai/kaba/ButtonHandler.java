@@ -52,6 +52,9 @@ public class ButtonHandler implements ActionListener {
                     aStarAlgorithm.compute();
                     break;
                 case 3:
+                    SimulatedAnnealing simulatedAnnealing = new SimulatedAnnealing(appWindow);
+                    simulatedAnnealing.init(AppGraph.getGraph());
+                    simulatedAnnealing.compute();
                     break;
                 default:
                     JOptionPane.showMessageDialog(appWindow, "Oga, please ensure an appropriate search algorithm is selected from the menu",
@@ -76,6 +79,7 @@ public class ButtonHandler implements ActionListener {
             node.removeAttribute("visited?");
             node.removeAttribute("level");
             node.removeAttribute("parent");
+            node.removeAttribute("layout.frozen");
         }
         for (Edge edge : graph.getEdgeSet()) {
             edge.removeAttribute("ui.color");

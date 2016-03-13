@@ -11,6 +11,7 @@ public class Main {
             mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             mainWindow.setSize(500, 500);
             mainWindow.setVisible(true);
+            AppWindow.setGraphPanel("graph.gv", false);
         });
     }
 }

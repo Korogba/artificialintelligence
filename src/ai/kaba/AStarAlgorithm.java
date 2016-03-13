@@ -60,7 +60,17 @@ public class AStarAlgorithm extends AbstractGraphicSearch implements CostInterfa
     }
 
     @Override
-    //Get Proper Admissible, Monotonic Heuristic: This is not optimal!
+    /* Get Proper Admissible, Monotonic Heuristic: This is not optimal!
+       With a non-admissible heuristic, the A* algorithm could overlook
+       the optimal solution to a search problem due to an overestimation in f(n)
+       Which is the case when start node is A and goal node Q
+       At the other extreme, if h(n) is very high relative to g(n),
+       then only h(n) plays a role, and A* turns into Greedy Best-First-Search (Likely scenario here)
+       At one extreme, if h(n) is 0, then only g(n) plays a role, and A* turns into Dijkstra’s algorithm, which is guaranteed to find a shortest path.
+       If h(n) is always lower than (or equal to) the cost of moving from n to the goal,
+       then A* is guaranteed to find a shortest path. The lower h(n) is, the more node A* expands, making it slower. (What we want)
+       Reference: http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html
+   */
     public int heuristic(Node currentNode, Node goalNode) {
         if(currentNode == goalNode) {
             return 0;
