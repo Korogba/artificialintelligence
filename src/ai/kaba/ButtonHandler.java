@@ -56,6 +56,11 @@ public class ButtonHandler implements ActionListener {
                     simulatedAnnealing.init(AppGraph.getGraph());
                     simulatedAnnealing.compute();
                     break;
+                case 4:
+                    TabuSearch tabuSearch = new TabuSearch(appWindow);
+                    tabuSearch.init(AppGraph.getGraph());
+                    tabuSearch.compute();
+                    break;
                 default:
                     JOptionPane.showMessageDialog(appWindow, "Oga, please ensure an appropriate search algorithm is selected from the menu",
                             "Error", JOptionPane.ERROR_MESSAGE);
@@ -79,11 +84,15 @@ public class ButtonHandler implements ActionListener {
             node.removeAttribute("visited?");
             node.removeAttribute("level");
             node.removeAttribute("parent");
-            node.removeAttribute("layout.frozen");
         }
         for (Edge edge : graph.getEdgeSet()) {
             edge.removeAttribute("ui.color");
             edge.removeAttribute("ui.class");
+        }
+        if(AppWindow.isTsp()){
+            while (graph.getEdgeCount() > 0) {
+                graph.removeEdge(0);
+            }
         }
         appWindow.getStatus().setText("Graph cleared!");
     }

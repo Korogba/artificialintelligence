@@ -24,7 +24,7 @@ public class AppWindow extends JFrame{
     private static boolean firstDraw = true;
     private static JPanel graphPanel = new JPanel(new GridLayout(1,1));
     public static String title = "Artificial Intelligence";
-    public static String[] algorithmString = {"Breadth First Search", "Depth First Search", "A*", "Simulated Annealing"};
+    public static String[] algorithmString = {"Breadth First Search", "Depth First Search", "A*", "Simulated Annealing", "Tabu Search"};
     public static int searchNumber = -1;
     public static String statusBar = "status";
     public static int speed = 500;
@@ -180,12 +180,16 @@ public class AppWindow extends JFrame{
         return fast;
     }
 
+    public static boolean isTsp(){
+        return tsp;
+    }
+
     public static void selectAppropriateGraph(int number) {
-        if(searchNumber == 3 && !tsp){
+        if(searchNumber >= 3 && !tsp){
             searchNumber = number;
             setGraphPanel("dgsGraph.dgs", true);
             tsp = true;
-        } else if(tsp) {
+        } else if(searchNumber < 3 && tsp) {
             searchNumber = number;
             setGraphPanel("graph.gv", false);
             tsp = false;

@@ -32,7 +32,7 @@ import java.util.*;
  *                      sibling.parent = current
  *                      next.add(sibling)
  *                      i++
-*                   endif
+ *                  endif
  *              endfor
  *              frontier = next
  *          endfor
