@@ -1,4 +1,4 @@
-package ai.kaba;
+package ai.kaba.abstracts;
 
 import org.graphstream.graph.Node;
 

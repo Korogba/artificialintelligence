@@ -1,4 +1,6 @@
-package ai.kaba;
+package ai.kaba.handlers;
+
+import ai.kaba.ui.AppWindow;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

@@ -1,5 +1,7 @@
-package ai.kaba;
+package ai.kaba.metaheuristics;
 
+import ai.kaba.ui.AppWindow;
+import ai.kaba.abstracts.MetaHeuristics;
 import org.graphstream.graph.Node;
 
 import java.util.*;
@@ -8,33 +10,27 @@ import java.util.*;
  * Created by Yusuf on 3/15/2016
  * Tabu Search Algorithm
  * Start:
- *      generate random starting solution, s
- *      make cost of s: finalCost
- *      Loop: for total number of predefined iterations
- *          Loop: iterate through s swapping adjacent nodes
- *              bestSwap = infinity
- *              if(swapValue =(i,j) < bestSwap)
- *                  if(tabu(swap(i,j))
- *                      if(aspirationCriteria(swap(i,j))
- *                          bestSwapItem = swap(i,j)
- *                          bestSwap = costSwap(i,j)
- *                  else
- *                      bestSwapItem = swap(i,j)
- *                      bestSwap = costSwap(i,j)
- *          get cost of bestSwap
- *          get bestSwapItem = swap(i,j)
- *          make bestSwap current
- *          update tabu
- *          update aspirationCriteria
- *          if(tourCost of bestSwapItem < best-tour cost)
- *              best-tour cost = tourCost of bestSwapItem
- *
- *
- *
- *
+ *      generate random starting solution, currentTour
+ *      generateHeuristicList of currentTour
+ *      make cost of currentTour: bestCost
+ *      loop: for total number of predefined iterations
+ *          if: after every predefined number of steps
+ *              shuffle currentTour
+ *              generateHeuristicList of currentTour
+ *              clear tabuList
+ *          endif
+ *          generateBestNeighbor of currentTour
+ *          update tabuList
+ *          if(cost of currentTour < cost of bestTour)
+ *              bestTour = currentTour
+ *              bestCost = cost of currentTour
+ *              publish bestTour
+ *          endif
+ *      endLoop
+ *      return bestTour
  *
  */
-public class TabuSearch extends MetaHeuristics{
+public class TabuSearch extends MetaHeuristics {
 
     private double bestCost;
     private List<Node> bestTour;

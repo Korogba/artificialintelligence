@@ -1,5 +1,6 @@
-package ai.kaba;
+package ai.kaba.abstracts;
 
+import ai.kaba.ui.AppWindow;
 import org.graphstream.algorithm.Toolkit;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;

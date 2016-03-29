@@ -1,4 +1,4 @@
-package ai.kaba;
+package ai.kaba.ui;
 
 import org.graphstream.graph.Graph;
 import org.graphstream.graph.Node;

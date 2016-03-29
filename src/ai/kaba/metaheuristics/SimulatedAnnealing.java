@@ -1,5 +1,7 @@
-package ai.kaba;
+package ai.kaba.metaheuristics;
 
+import ai.kaba.ui.AppWindow;
+import ai.kaba.abstracts.MetaHeuristics;
 import org.graphstream.graph.Node;
 
 import java.util.Collections;

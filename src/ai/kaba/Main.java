@@ -1,5 +1,7 @@
 package ai.kaba;
 
+import ai.kaba.ui.AppWindow;
+
 import javax.swing.*;
 
 public class Main {

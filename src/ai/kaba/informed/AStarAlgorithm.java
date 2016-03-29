@@ -1,5 +1,8 @@
-package ai.kaba;
+package ai.kaba.informed;
 
+import ai.kaba.ui.AppWindow;
+import ai.kaba.abstracts.AbstractGraphicSearch;
+import ai.kaba.abstracts.CostInterface;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Node;
 import org.jetbrains.annotations.Nullable;

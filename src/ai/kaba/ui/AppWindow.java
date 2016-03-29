@@ -1,4 +1,8 @@
-package ai.kaba;
+package ai.kaba.ui;
+
+import ai.kaba.handlers.ButtonHandler;
+import ai.kaba.handlers.MenuHandler;
+import ai.kaba.ui.AppGraph;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,10 +28,13 @@ public class AppWindow extends JFrame{
     private static boolean firstDraw = true;
     private static JPanel graphPanel = new JPanel(new GridLayout(1,1));
     public static String title = "Artificial Intelligence";
-    public static String[] algorithmString = {"Breadth First Search", "Depth First Search", "A*", "Simulated Annealing", "Tabu Search"};
+    public static String[] algorithmString = {"Breadth First Search", "Depth First Search", "A*", "Simulated Annealing", "Tabu Search" , "Multi-Layer Peceptron"};
     public static int searchNumber = -1;
     public static String statusBar = "status";
     public static int speed = 500;
+
+    //TODO Please edit selectAppropriateGraph() such that the client specifies the name of graph to be loaded!!!
+    //TODO Get logic of searchNumber = number in selectAppropriateGraph() function
 
     /*
     * Constructor for displaying application window
@@ -186,8 +193,12 @@ public class AppWindow extends JFrame{
 
     public static void selectAppropriateGraph(int number) {
         if(searchNumber >= 3 && !tsp){
+            String graphName = "dgsGraph.dgs";
             searchNumber = number;
-            setGraphPanel("dgsGraph.dgs", true);
+            if(searchNumber == 5){
+                graphName = "multiLayerPerceptron.dgs";
+            }
+            setGraphPanel(graphName, true);
             tsp = true;
         } else if(searchNumber < 3 && tsp) {
             searchNumber = number;
@@ -205,7 +216,7 @@ public class AppWindow extends JFrame{
     }
 
     /*
-    * Change title to reflect current algorithm
+    * Change status bar to reflect current/last operation
     */
     public void changeStatus(String newStatus) {
         status.setText(newStatus);

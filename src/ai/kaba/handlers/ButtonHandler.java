@@ -1,5 +1,12 @@
-package ai.kaba;
+package ai.kaba.handlers;
 
+import ai.kaba.ui.AppGraph;
+import ai.kaba.ui.AppWindow;
+import ai.kaba.informed.AStarAlgorithm;
+import ai.kaba.metaheuristics.SimulatedAnnealing;
+import ai.kaba.metaheuristics.TabuSearch;
+import ai.kaba.uninformed.BFSAlgorithm;
+import ai.kaba.uninformed.DFSAlgorithm;
 import org.apache.commons.lang3.text.WordUtils;
 import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
