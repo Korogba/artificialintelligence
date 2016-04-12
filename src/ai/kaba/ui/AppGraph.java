@@ -18,12 +18,12 @@ import java.io.IOException;
  */
 public class AppGraph {
 
-    private static Graph graph = new SingleGraph("Graph Traversal");
+    private Graph graph = new SingleGraph("Graph Traversal");
 
     /*
     *Initialize graph with edges and nodes
     */
-    public static ViewPanel init(String graphName, boolean isDGS){
+    public ViewPanel init(String graphName, boolean isDGS){
 
         graph.addAttribute("ui.stylesheet", styleSheet);
         graph.setAutoCreate(true);
@@ -39,13 +39,13 @@ public class AppGraph {
 
     }
 
-    private static ViewPanel attachViewPanel() {
+    private ViewPanel attachViewPanel() {
         Viewer viewer = new Viewer(graph, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
         viewer.enableAutoLayout();
         return viewer.addDefaultView(false);
     }
 
-    private static void initGraph(String graphName, boolean isDGS){
+    private void initGraph(String graphName, boolean isDGS){
         FileSource fs;
         if(isDGS){
             fs = new FileSourceDGS();
@@ -63,7 +63,7 @@ public class AppGraph {
         }
     }
 
-    private static void initNodes(Graph graph) {
+    private void initNodes(Graph graph) {
         for (Node node : graph) {
             node.addAttribute("ui.label", node.getId());
         }
@@ -72,11 +72,11 @@ public class AppGraph {
     /*
     * Getters
     */
-    public static Graph getGraph() {
+    public Graph getGraph() {
         return graph;
     }
 
-    protected static String styleSheet =
+    protected String styleSheet =
             "graph {"+
                     "fill-color: #eee;" +
                     "}"+

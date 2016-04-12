@@ -56,12 +56,12 @@ public abstract class AbstractGraphicSearch extends AbstractAlgorithm implements
     public void compute() {
         if(isExecuteTask()){
             getAppWindow().allStatus(false);
-            getAppWindow().changeStatus("Running " + AppWindow.algorithmString[AppWindow.searchNumber] + "...");
+            getAppWindow().changeStatus("Running " + AppWindow.getAlgorithmString() + "...");
             getSearchTask().execute();
         } else {
             JOptionPane.showMessageDialog(getAppWindow(), "Oga Select Start AND Goal nodes", "Error", JOptionPane.ERROR_MESSAGE);
             getAppWindow().allStatus(true);
-            getAppWindow().changeStatus("Failed to run: " + AppWindow.algorithmString[AppWindow.searchNumber]);
+            getAppWindow().changeStatus("Failed to run: " + AppWindow.getAlgorithmString());
         }
     }
 
@@ -72,7 +72,7 @@ public abstract class AbstractGraphicSearch extends AbstractAlgorithm implements
         visitedEdge.setAttribute("ui.color", 1);
         if(nextNode == getStartNode() || getPathToGoal().size() == 0){
             getTimer().stop();
-            getAppWindow().changeStatus("Done running " + AppWindow.algorithmString[AppWindow.searchNumber]  + ".");
+            getAppWindow().changeStatus("Done running " + AppWindow.getAlgorithmString()  + ".");
             getAppWindow().disableExceptClear();
         }
     }

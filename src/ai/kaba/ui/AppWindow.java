@@ -1,41 +1,37 @@
 package ai.kaba.ui;
 
-import ai.kaba.handlers.ButtonHandler;
+import ai.kaba.abstracts.AbstractGraphWindow;
+import ai.kaba.abstracts.Runner;
 import ai.kaba.handlers.MenuHandler;
-import ai.kaba.ui.AppGraph;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.util.List;
 
 /**
  * Created by Yusuf on 2/28/2016.
  * AppWindow contains the gui components of the application
  */
-public class AppWindow extends JFrame{
+public class AppWindow extends JFrame {
     /*
     * Initialize gui components
     */
-    private JMenuItem[] algorithm;
     private JMenuItem slow;
     private JMenuItem moderate;
     private JMenuItem fast;
-    private JButton start;
-    private JButton goal;
-    private JButton clear;
-    private JButton search;
     private JTextField status;
-    private static boolean tsp;
-    private static boolean firstDraw = true;
-    private static JPanel graphPanel = new JPanel(new GridLayout(1,1));
+    private JTabbedPane tabbedPane;
     public static String title = "Artificial Intelligence";
-    public static String[] algorithmString = {"Breadth First Search", "Depth First Search", "A*", "Simulated Annealing", "Tabu Search" , "Multi-Layer Peceptron"};
-    public static int searchNumber = -1;
+    public static String algorithmString;
     public static String statusBar = "status";
     public static int speed = 500;
+    private SearchWindow searchWindow;
+    private OptimizationWindow optimizationWindow;
+    private Runner selectedComponent;
 
-    //TODO Please edit selectAppropriateGraph() such that the client specifies the name of graph to be loaded!!!
-    //TODO Get logic of searchNumber = number in selectAppropriateGraph() function
-
+    //TODO Tabbed views: Add logic for menuitem clicking switching to appropriate tab
+    //TODO Properly set up tabbed: shortcut mnemonic n all
     /*
     * Constructor for displaying application window
     */
@@ -45,94 +41,72 @@ public class AppWindow extends JFrame{
         */
         super(title);
         /*
-        * Set the layout clause
+        * Set the layout
         */
         setLayout(new GridBagLayout());
         /*
         * Set up menus
         */
         JMenuBar jMenuBar = new JMenuBar();
-        JMenu searchTitle = new JMenu("Search Algorithm");
-        searchTitle.setMnemonic('a');
-        algorithm = new JMenuItem[algorithmString.length];
+        JMenu file = new JMenu("File");
 
         MenuHandler menuHandler = new MenuHandler(this);
-        for(int count = 0; count < algorithmString.length; count++){
-            algorithm[count] = new JMenuItem(algorithmString[count]);
-            searchTitle.add(algorithm[count]);
-            algorithm[count].addActionListener(menuHandler);
-        }
 
         JMenu speed = new JMenu("Speed");
         speed.setMnemonic('s');
         slow = new JMenuItem("Slow");
         speed.add(slow);
         slow.addActionListener(menuHandler);
-         moderate = new JMenuItem("Moderate (Default)");
+        moderate = new JMenuItem("Moderate (Default)");
         moderate.addActionListener(menuHandler);
         speed.add(moderate);
         fast = new JMenuItem("Fast");
         fast.addActionListener(menuHandler);
         speed.add(fast);
 
-        jMenuBar.add(searchTitle);
+        jMenuBar.add(file);
         jMenuBar.add(speed);
 
         setJMenuBar(jMenuBar);
 
         /*
-        * Set up Buttons
+        * Set up Tabs
         */
-        ButtonHandler buttonHandler = new ButtonHandler(this);
+        GridBagConstraints tabConstraints = new GridBagConstraints();
+        tabConstraints.fill = GridBagConstraints.BOTH;
+        tabConstraints.gridx = 0;
+        tabConstraints.gridy = 0;
+        tabConstraints.weightx = 0.5;
+        tabConstraints.weighty = 0.5;
+        tabConstraints.gridwidth = GridBagConstraints.REMAINDER;
 
-        search = new JButton("Search");
-        GridBagConstraints searchConstraints = new GridBagConstraints();
-        searchConstraints.fill = GridBagConstraints.HORIZONTAL;
-        searchConstraints.gridx = 0;
-        searchConstraints.gridy = 0;
-        searchConstraints.weightx =0.5;
-        search.addActionListener(buttonHandler);
-        add(search, searchConstraints);
+        tabbedPane = new JTabbedPane();
+        searchWindow = new SearchWindow(this);
+        tabbedPane.addTab("Graph Traversal", searchWindow);
+        tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
-        clear = new JButton("Clear");
-        GridBagConstraints stopConstraints = new GridBagConstraints();
-        stopConstraints.fill = GridBagConstraints.HORIZONTAL;
-        stopConstraints.gridx = 1;
-        stopConstraints.gridy = 0;
-        stopConstraints.weightx =0.5;
-        clear.addActionListener(buttonHandler);
-        add(clear, stopConstraints);
+        optimizationWindow = new OptimizationWindow(this);
+        tabbedPane.addTab("Minimization Graph", optimizationWindow);
+        tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
-        start = new JButton("Set Start");
-        GridBagConstraints startConstraints = new GridBagConstraints();
-        startConstraints.fill = GridBagConstraints.HORIZONTAL;
-        startConstraints.gridx = 2;
-        startConstraints.gridy = 0;
-        startConstraints.weightx =0.5;
-        start.addActionListener(buttonHandler);
-        add(start, startConstraints);
+        tabbedPane.addTab("Machine Learning", new JPanel());
+        tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
 
-        goal = new JButton("Set Goal");
-        GridBagConstraints goalConstraints = new GridBagConstraints();
-        goalConstraints.fill = GridBagConstraints.HORIZONTAL;
-        goalConstraints.gridx = 3;
-        goalConstraints.gridy = 0;
-        goalConstraints.weightx = 0.5;
-        goal.addActionListener(buttonHandler);
-        add(goal, goalConstraints);
+        tabbedPane.addChangeListener(changeEvent -> {
+            if(tabbedPane.getSelectedComponent().getClass().equals(SearchWindow.class)){
+                setAppropriateTitleAndStatus(searchWindow.getAlgorithms(), "Graph Search");
+                selectedComponent = (AbstractGraphWindow) tabbedPane.getSelectedComponent();
+            }
+            if(tabbedPane.getSelectedComponent().getClass().equals(OptimizationWindow.class)){
+                setAppropriateTitleAndStatus(optimizationWindow.getAlgorithms(), "Minimization Problem");
+                selectedComponent = (AbstractGraphWindow) tabbedPane.getSelectedComponent();
+            }
+        });
 
-        /*
-        * Set up graph
-        */
-        GridBagConstraints graphConstraints = new GridBagConstraints();
-        graphConstraints.fill = GridBagConstraints.BOTH;
-        graphConstraints.gridx = 0;
-        graphConstraints.gridy = 1;
-        graphConstraints.weightx = 0.5;
-        graphConstraints.weighty = 0.5;
-        graphConstraints.gridwidth = 4;
-        graphConstraints.gridheight = GridBagConstraints.RELATIVE;
-        add(graphPanel, graphConstraints);
+        selectedComponent = (AbstractGraphWindow) tabbedPane.getSelectedComponent();
+
+        add(tabbedPane, tabConstraints);
+
         /*
         * Set up status bar below
         */
@@ -141,34 +115,38 @@ public class AppWindow extends JFrame{
         GridBagConstraints statusConstraints = new GridBagConstraints();
         statusConstraints.fill = GridBagConstraints.HORIZONTAL;
         statusConstraints.gridx = 0;
-        statusConstraints.gridy = 2;
+        statusConstraints.gridy = 1;
         statusConstraints.weightx =0.5;
-        statusConstraints.gridwidth = 4;
+        statusConstraints.gridwidth = GridBagConstraints.REMAINDER;
         statusConstraints.gridheight = 1;
         add(status, statusConstraints);
+    }
+
+    private void setAppropriateTitleAndStatus(List<JRadioButton> algorithms, String defaultTitle) {
+        boolean flag = true;
+        for(JRadioButton radioButton : algorithms){
+            if(radioButton.isSelected()){
+                setAlgorithmString(radioButton.getText());
+                changeTitle("Artificial Intelligence: " + radioButton.getText());
+                changeStatus(radioButton.getText() + " selected");
+                flag = false;
+            }
+        }
+        if(flag){
+            changeTitle("Artificial Intelligence: " + defaultTitle);
+            changeStatus(defaultTitle + " selected");
+        }
     }
 
     /*
     * Getters
     */
-    public JButton getStart() {
-        return start;
+    public static void setAlgorithmString(String algorithmName) {
+        algorithmString = algorithmName;
     }
 
-    public JButton getGoal() {
-        return goal;
-    }
-
-    public JButton getClear() {
-        return clear;
-    }
-
-    public JButton getSearch() {
-        return search;
-    }
-
-    public JMenuItem[] getAlgorithm() {
-        return algorithm;
+    public static String getAlgorithmString() {
+        return algorithmString;
     }
 
     public JTextField getStatus() {
@@ -187,26 +165,6 @@ public class AppWindow extends JFrame{
         return fast;
     }
 
-    public static boolean isTsp(){
-        return tsp;
-    }
-
-    public static void selectAppropriateGraph(int number) {
-        if(searchNumber >= 3 && !tsp){
-            String graphName = "dgsGraph.dgs";
-            searchNumber = number;
-            if(searchNumber == 5){
-                graphName = "multiLayerPerceptron.dgs";
-            }
-            setGraphPanel(graphName, true);
-            tsp = true;
-        } else if(searchNumber < 3 && tsp) {
-            searchNumber = number;
-            setGraphPanel("graph.gv", false);
-            tsp = false;
-        }
-    }
-
     /*
     * Change title to reflect current algorithm
     */
@@ -223,41 +181,20 @@ public class AppWindow extends JFrame{
     }
 
     public void allStatus(boolean flag){
-        start.setEnabled(flag);
-        goal.setEnabled(flag);
-        clear.setEnabled(flag);
-        search.setEnabled(flag);
+        AbstractGraphWindow castComponent = (AbstractGraphWindow) selectedComponent;
+        castComponent.allStatus(flag);
         slow.setEnabled(flag);
         moderate.setEnabled(flag);
         fast.setEnabled(flag);
-        for (JMenuItem anAlgorithm : algorithm) {
-            anAlgorithm.setEnabled(flag);
-        }
+        tabbedPane.setEnabled(flag);
     }
 
     public void disableExceptClear(){
-        start.setEnabled(false);
-        goal.setEnabled(false);
-        search.setEnabled(false);
-        clear.setEnabled(true);
+        AbstractGraphWindow castComponent = (AbstractGraphWindow) selectedComponent;
+        castComponent.disableExceptClear();
         slow.setEnabled(false);
         moderate.setEnabled(false);
         fast.setEnabled(false);
-        for (JMenuItem anAlgorithm : algorithm) {
-            anAlgorithm.setEnabled(false);
-        }
-    }
-
-    public static void setGraphPanel(String graphName, boolean isDGS){
-        if(firstDraw){
-            graphPanel.add(AppGraph.init(graphName, isDGS));
-            firstDraw = false;
-            return;
-        }
-        AppGraph.getGraph().clear();
-        graphPanel.remove(0);
-        graphPanel.add(AppGraph.init(graphName, isDGS));
-        graphPanel.validate();
-        graphPanel.repaint();
+        tabbedPane.setEnabled(true);
     }
 }

@@ -2,7 +2,6 @@ package ai.kaba.handlers;
 
 import ai.kaba.ui.AppWindow;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -36,20 +35,7 @@ public class MenuHandler implements ActionListener {
         if(actionEvent.getSource() == appWindow.getFast()){
             AppWindow.speed = 200;
             appWindow.changeStatus("Search speed changed to: fast");
-            return;
         }
 
-        JMenuItem[] algorithms = appWindow.getAlgorithm();
-        int count = 0;
-        for (JMenuItem algorithm : algorithms) {
-            if (actionEvent.getSource() == algorithm) {
-                appWindow.changeTitle("Artificial Intelligence: " + algorithm.getText());
-                appWindow.changeStatus("Algorithm change: " + algorithm.getText());
-                AppWindow.searchNumber = count;
-                AppWindow.selectAppropriateGraph(count);
-                break;
-            }
-            count++;
-        }
     }
 }

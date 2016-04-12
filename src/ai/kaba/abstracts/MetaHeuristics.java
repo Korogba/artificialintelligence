@@ -44,7 +44,7 @@ public abstract class MetaHeuristics extends AbstractAlgorithm {
         }
         updateEdges(nodeList, 0.5);
         getAppWindow().allStatus(false);
-        getAppWindow().changeStatus("Running " + AppWindow.algorithmString[AppWindow.searchNumber] + "...");
+        getAppWindow().changeStatus("Running " + AppWindow.getAlgorithmString() + "...");
     }
 
     protected void updateEdges(List<Node> nodeList, double color){
@@ -118,7 +118,7 @@ public abstract class MetaHeuristics extends AbstractAlgorithm {
                     }
                 }
                 System.out.println("Final Travel Path: " + printList);
-                getAppWindow().changeStatus("Done running " + AppWindow.algorithmString[AppWindow.searchNumber]  + ".");
+                getAppWindow().changeStatus("Done running " + AppWindow.getAlgorithmString()  + ".");
                 getAppWindow().disableExceptClear();
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
