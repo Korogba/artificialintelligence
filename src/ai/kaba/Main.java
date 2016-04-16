@@ -22,7 +22,7 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             AppWindow mainWindow = new AppWindow();
             mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            mainWindow.setSize(600, 600);
+            mainWindow.setSize(800, 600);
             mainWindow.setVisible(true);
             //AppWindow.setGraphPanel("graph.gv", false);
         });

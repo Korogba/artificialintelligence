@@ -78,7 +78,7 @@ public class AppGraph {
 
     protected String styleSheet =
             "graph {"+
-                    "fill-color: #eee;" +
+                    "fill-color: #FFFFFF;" +
                     "}"+
             "edge {"+
                     "size: 2px;"+
@@ -88,7 +88,7 @@ public class AppGraph {
             "node {"+
                     "size: 25px;"+
                     "fill-mode: dyn-plain;"+
-                    "fill-color: #FFFFFF, #f2ede4, #95b205;"+
+                    "fill-color: #EEEEEE, #f2ede4, #95b205;"+
                     "text-size: 16px;"+
                     "}" +
             "node.start {"+

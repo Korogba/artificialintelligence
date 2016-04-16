@@ -1,7 +1,8 @@
 package ai.kaba.ui;
 
 import ai.kaba.abstracts.AbstractGraphWindow;
-import ai.kaba.abstracts.Runner;
+import ai.kaba.abstracts.GeneticAlgorithm;
+import ai.kaba.abstracts.interfaces.Runner;
 import ai.kaba.handlers.MenuHandler;
 
 import javax.swing.*;
@@ -29,6 +30,7 @@ public class AppWindow extends JFrame {
     private SearchWindow searchWindow;
     private OptimizationWindow optimizationWindow;
     private Runner selectedComponent;
+    private GAWindow gaWindow;
 
     //TODO Tabbed views: Add logic for menuitem clicking switching to appropriate tab
     //TODO Properly set up tabbed: shortcut mnemonic n all
@@ -89,7 +91,8 @@ public class AppWindow extends JFrame {
         tabbedPane.addTab("Minimization Graph", optimizationWindow);
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
-        tabbedPane.addTab("Machine Learning", new JPanel());
+        gaWindow = new GAWindow(this);
+        tabbedPane.addTab("Machine Learning", gaWindow);
         tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
 
         tabbedPane.addChangeListener(changeEvent -> {
@@ -100,6 +103,10 @@ public class AppWindow extends JFrame {
             if(tabbedPane.getSelectedComponent().getClass().equals(OptimizationWindow.class)){
                 setAppropriateTitleAndStatus(optimizationWindow.getAlgorithms(), "Minimization Problem");
                 selectedComponent = (AbstractGraphWindow) tabbedPane.getSelectedComponent();
+            }
+            if(tabbedPane.getSelectedComponent().getClass().equals(GAWindow.class)){
+                setAppropriateTitleAndStatus(gaWindow.getChartPane(), "Machine Learning");
+                selectedComponent = gaWindow.getCurrent();
             }
         });
 
@@ -122,7 +129,7 @@ public class AppWindow extends JFrame {
         add(status, statusConstraints);
     }
 
-    private void setAppropriateTitleAndStatus(List<JRadioButton> algorithms, String defaultTitle) {
+    public void setAppropriateTitleAndStatus(List<JRadioButton> algorithms, String defaultTitle) {
         boolean flag = true;
         for(JRadioButton radioButton : algorithms){
             if(radioButton.isSelected()){
@@ -136,6 +143,13 @@ public class AppWindow extends JFrame {
             changeTitle("Artificial Intelligence: " + defaultTitle);
             changeStatus(defaultTitle + " selected");
         }
+    }
+
+    public void setAppropriateTitleAndStatus(JTabbedPane tabbedPane, String defaultTitle) {
+        GeneticAlgorithm selectedPane = (GeneticAlgorithm) tabbedPane.getSelectedComponent();
+        String functionName = selectedPane.returnName();
+        changeTitle(defaultTitle + ": " + functionName);
+        changeStatus(functionName + " selected");
     }
 
     /*
@@ -165,9 +179,13 @@ public class AppWindow extends JFrame {
         return fast;
     }
 
+    public GAWindow getGaWindow() {
+        return gaWindow;
+    }
+
     /*
-    * Change title to reflect current algorithm
-    */
+        * Change title to reflect current algorithm
+        */
     public void changeTitle(String newTitle) {
         title = newTitle;
         setTitle(newTitle);
@@ -181,20 +199,20 @@ public class AppWindow extends JFrame {
     }
 
     public void allStatus(boolean flag){
-        AbstractGraphWindow castComponent = (AbstractGraphWindow) selectedComponent;
-        castComponent.allStatus(flag);
+        selectedComponent.allStatus(flag);
         slow.setEnabled(flag);
         moderate.setEnabled(flag);
         fast.setEnabled(flag);
         tabbedPane.setEnabled(flag);
+        gaWindow.getChartPane().setEnabled(flag);
     }
 
     public void disableExceptClear(){
-        AbstractGraphWindow castComponent = (AbstractGraphWindow) selectedComponent;
-        castComponent.disableExceptClear();
+        selectedComponent.disableExceptClear();
         slow.setEnabled(false);
         moderate.setEnabled(false);
         fast.setEnabled(false);
         tabbedPane.setEnabled(true);
+        gaWindow.getChartPane().setEnabled(true);
     }
 }

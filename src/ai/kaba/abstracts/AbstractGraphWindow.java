@@ -1,5 +1,6 @@
 package ai.kaba.abstracts;
 
+import ai.kaba.abstracts.interfaces.Runner;
 import ai.kaba.ui.AppGraph;
 import ai.kaba.ui.AppWindow;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * Created by Yusuf on 4/11/2016
  * Combines functionality of SearchWindow and OptimizationWindow
  */
-public abstract class AbstractGraphWindow extends JPanel implements Runner{
+public abstract class AbstractGraphWindow extends JPanel implements Runner {
     /*
     * Initialize gui components
     */

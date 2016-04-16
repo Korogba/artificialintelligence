@@ -1,4 +1,4 @@
-package ai.kaba.abstracts;
+package ai.kaba.abstracts.interfaces;
 
 import javax.swing.*;
 
@@ -9,4 +9,6 @@ import javax.swing.*;
 public interface Runner {
     JButton getClear();
     JButton getSearch();
+    void allStatus(boolean flag);
+    void disableExceptClear();
 }
