@@ -1,6 +1,6 @@
 package ai.kaba.abstracts.interfaces;
 
-import ai.kaba.machinelearning.Individual;
+import ai.kaba.machinelearning.ga.helper.Individual;
 
 /**
  * Created by Yusuf on 4/5/2016

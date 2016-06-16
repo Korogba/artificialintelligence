@@ -1,7 +1,7 @@
 package ai.kaba.machinelearning.ga;
 
 import ai.kaba.abstracts.GeneticAlgorithm;
-import ai.kaba.machinelearning.Individual;
+import ai.kaba.machinelearning.ga.helper.Individual;
 import ai.kaba.ui.AppWindow;
 
 /**

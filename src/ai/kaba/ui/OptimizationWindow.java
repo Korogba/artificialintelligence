@@ -2,11 +2,13 @@ package ai.kaba.ui;
 
 import ai.kaba.abstracts.AbstractGraphWindow;
 import ai.kaba.handlers.SearchHandler;
+import org.graphstream.ui.swingViewer.ViewPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseListener;
 import java.util.LinkedList;
 
 /**
@@ -36,7 +38,11 @@ public class OptimizationWindow extends AbstractGraphWindow {
 
     @Override
     protected Component initGraphPanel() {
-        return appGraph.init("dgsGraph.dgs", true);
+        ViewPanel viewPanel =  appGraph.init("dgsGraph.dgs", true);
+        for(MouseListener toRemove : viewPanel.getMouseListeners()) {
+            viewPanel.removeMouseListener(toRemove);
+        }
+        return viewPanel;
     }
 
     @Override

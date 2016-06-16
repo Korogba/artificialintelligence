@@ -19,6 +19,7 @@ import java.io.IOException;
 public class AppGraph {
 
     private Graph graph = new SingleGraph("Graph Traversal");
+    private Viewer viewer;
 
     /*
     *Initialize graph with edges and nodes
@@ -40,7 +41,7 @@ public class AppGraph {
     }
 
     private ViewPanel attachViewPanel() {
-        Viewer viewer = new Viewer(graph, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
+        viewer = new Viewer(graph, Viewer.ThreadingModel.GRAPH_IN_ANOTHER_THREAD);
         viewer.enableAutoLayout();
         return viewer.addDefaultView(false);
     }
@@ -76,6 +77,10 @@ public class AppGraph {
         return graph;
     }
 
+    public Viewer getViewer() {
+        return viewer;
+    }
+
     protected String styleSheet =
             "graph {"+
                     "fill-color: #FFFFFF;" +
@@ -85,11 +90,68 @@ public class AppGraph {
                     "fill-mode: dyn-plain;"+
                     "fill-color: #000000, red, green;"+
                     "}"+
+            "edge.ann {"+
+                    "shape: cubic-curve;"+
+                    "text-mode:hidden;"+
+                    "text-alignment: along;"+
+                    "text-background-mode: rounded-box;"+
+                    "}" +
+            "edge.selectedAnn {"+
+                    "shape: cubic-curve;"+
+                    "text-mode:normal;"+
+                    "text-alignment: along;"+
+                    "text-background-mode: rounded-box;"+
+                    "}" +
+            "edge.externalEdge {"+
+                    "size: 2px;"+
+                    "}"+
+            "sprite {"+
+                    "shape: jcomponent;"+
+                    "jcomponent: text-field;"+
+                    "}"+
             "node {"+
                     "size: 25px;"+
                     "fill-mode: dyn-plain;"+
                     "fill-color: #EEEEEE, #f2ede4, #95b205;"+
                     "text-size: 16px;"+
+                    "}" +
+            "node.annOutput {"+
+                    "size: 25px;"+
+                    "text-mode:hidden;"+
+                    "fill-color: #8C2;"+
+                    "stroke-mode: plain;"+
+                    "stroke-color: #999;"+
+                    "shadow-mode: gradient-vertical;"+
+                    "shadow-color: #999, white;"+
+                    "shadow-offset: 0px;"+
+                    "}" +
+            "node.annInput {"+
+                    "size: 25px;"+
+                    "text-mode:hidden;"+
+                    "fill-color: #f2f2f2;"+
+                    "stroke-mode: plain;"+
+                    "stroke-color: #999;"+
+                    "shadow-mode: gradient-horizontal;"+
+                    "shadow-width: 4px;"+
+                    "shadow-offset: 0px;"+
+                    "shadow-color: #999, white;"+
+                    "shadow-offset: 0px;"+
+                    "}" +
+            "node.annHidden {"+
+                    "size: 25px;"+
+                    "text-mode:hidden;"+
+                    "fill-color: #808080;"+
+                    "stroke-mode: plain;"+
+                    "stroke-width: 2px;"+
+                    "stroke-color: #CCF;"+
+                    "shadow-mode: gradient-radial;"+
+                    "shadow-width: 10px;"+
+                    "shadow-color: #EEF, #000;"+
+                    "shadow-offset: 0px;"+
+                    "}" +
+            "node.externalNode {"+
+                    "size: 10px;"+
+                    "text-mode:hidden;"+
                     "}" +
             "node.start {"+
                     "fill-color: #e1f9f2;"+

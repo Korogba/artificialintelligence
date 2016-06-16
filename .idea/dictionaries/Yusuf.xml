@@ -5,7 +5,9 @@
       <w>dviewer</w>
       <w>endfor</w>
       <w>endwhile</w>
+      <w>freeplane</w>
       <w>graphstream</w>
+      <w>jcomponent</w>
       <w>joor</w>
       <w>linkedlist</w>
       <w>menuitem</w>

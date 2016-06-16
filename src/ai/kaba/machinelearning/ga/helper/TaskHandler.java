@@ -1,7 +1,6 @@
-package ai.kaba.machinelearning.ga;
+package ai.kaba.machinelearning.ga.helper;
 
 import ai.kaba.abstracts.GeneticAlgorithm;
-import ai.kaba.machinelearning.Individual;
 import org.jzy3d.maths.Coord3d;
 
 import javax.swing.*;
@@ -17,10 +16,10 @@ public class TaskHandler extends SwingWorker<Void, List<Individual>> {
 
     private GeneticAlgorithm geneticAlgorithm;
     private List<List<Individual>> populationList;
-    int listIndex = 0;
     private Timer traversal = new Timer(200, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
+            int listIndex = 0;
             List<Individual> current = populationList.remove(listIndex);
             geneticAlgorithm.getChart().getScene().remove(geneticAlgorithm.getScatter());
             geneticAlgorithm.getScatter().clear();
@@ -35,7 +34,7 @@ public class TaskHandler extends SwingWorker<Void, List<Individual>> {
             if(listIndex >= populationList.size()){
                 traversal.stop();
                 System.out.println("Final Coordinates: \n" + printCoordinates(geneticAlgorithm.getScatter().getData()));
-                geneticAlgorithm.getAppWindow().changeStatus("Done Running " + geneticAlgorithm.returnName() + "...");
+                geneticAlgorithm.getAppWindow().changeStatus("Done Running " + geneticAlgorithm.returnName() + ".");
                 geneticAlgorithm.getAppWindow().disableExceptClear();
             }
         }

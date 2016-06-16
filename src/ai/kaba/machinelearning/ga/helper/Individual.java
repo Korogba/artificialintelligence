@@ -1,4 +1,4 @@
-package ai.kaba.machinelearning;
+package ai.kaba.machinelearning.ga.helper;
 
 import ai.kaba.abstracts.interfaces.Fitness;
 

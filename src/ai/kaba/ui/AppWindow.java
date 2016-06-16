@@ -4,6 +4,7 @@ import ai.kaba.abstracts.AbstractGraphWindow;
 import ai.kaba.abstracts.GeneticAlgorithm;
 import ai.kaba.abstracts.interfaces.Runner;
 import ai.kaba.handlers.MenuHandler;
+import ai.kaba.machinelearning.ann.NeuralNet;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +32,7 @@ public class AppWindow extends JFrame {
     private OptimizationWindow optimizationWindow;
     private Runner selectedComponent;
     private GAWindow gaWindow;
+    private static NNWindow neuralNet;
 
     //TODO Tabbed views: Add logic for menuitem clicking switching to appropriate tab
     //TODO Properly set up tabbed: shortcut mnemonic n all
@@ -95,6 +97,10 @@ public class AppWindow extends JFrame {
         tabbedPane.addTab("Machine Learning", gaWindow);
         tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
 
+        neuralNet = new NeuralNet(this);
+        tabbedPane.addTab("ANN", neuralNet);
+        tabbedPane.setMnemonicAt(3, KeyEvent.VK_4);
+
         tabbedPane.addChangeListener(changeEvent -> {
             if(tabbedPane.getSelectedComponent().getClass().equals(SearchWindow.class)){
                 setAppropriateTitleAndStatus(searchWindow.getAlgorithms(), "Graph Search");
@@ -107,6 +113,10 @@ public class AppWindow extends JFrame {
             if(tabbedPane.getSelectedComponent().getClass().equals(GAWindow.class)){
                 setAppropriateTitleAndStatus(gaWindow.getChartPane(), "Machine Learning");
                 selectedComponent = gaWindow.getCurrent();
+            }
+            if(tabbedPane.getSelectedComponent().getClass().equals(NeuralNet.class)){
+                setAppropriateTitleAndStatus("Multilayer Perceptron");
+                selectedComponent = neuralNet;
             }
         });
 
@@ -127,6 +137,13 @@ public class AppWindow extends JFrame {
         statusConstraints.gridwidth = GridBagConstraints.REMAINDER;
         statusConstraints.gridheight = 1;
         add(status, statusConstraints);
+
+        //callListeners();
+    }
+
+    public void setAppropriateTitleAndStatus(String title) {
+        changeTitle("Artificial Intelligence: " + title);
+        changeStatus(title + " selected");
     }
 
     public void setAppropriateTitleAndStatus(List<JRadioButton> algorithms, String defaultTitle) {
@@ -214,5 +231,9 @@ public class AppWindow extends JFrame {
         fast.setEnabled(false);
         tabbedPane.setEnabled(true);
         gaWindow.getChartPane().setEnabled(true);
+    }
+
+    public static void callListeners() {
+        neuralNet.callPump();
     }
 }
