@@ -3,6 +3,7 @@ package ai.kaba.abstracts;
 import ai.kaba.abstracts.interfaces.Fitness;
 import ai.kaba.abstracts.interfaces.Runner;
 import ai.kaba.handlers.GAHandler;
+import ai.kaba.handlers.GAMenuHandler;
 import ai.kaba.machinelearning.ga.helper.Individual;
 import ai.kaba.machinelearning.ga.helper.TaskHandler;
 import ai.kaba.ui.AppWindow;
@@ -33,30 +34,30 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public abstract class GeneticAlgorithm extends JPanel implements Fitness, Runner {
 
-    protected int populationSize;
-    protected double crossoverRate;
-    protected double mutationRate;
-    protected double randomAcceptance;
-    protected int numberOfInputs;
-    protected double lowerBound;
-    protected double upperBound;
-    protected List<Individual> population;
-    protected double averageFitness;
-    protected double totalFitness;
+    private int populationSize;
+    private double crossoverRate;
+    private double mutationRate;
+    private double randomAcceptance;
+    private int numberOfInputs;
+    private double lowerBound;
+    private double upperBound;
+    private List<Individual> population;
+    private double averageFitness;
+    private double totalFitness;
 
-    protected Scatter scatter;
-    protected Chart chart;
-    protected JPanel chartPanel;
-    protected JButton run;
-    protected JButton clear;
-    protected JComboBox<String> crossCombo;
-    protected JComboBox<String> mutationCombo;
-    protected JComboBox<String> acceptanceCombo;
+    private Scatter scatter;
+    private Chart chart;
+    private JPanel chartPanel;
+    private JButton run;
+    private JButton clear;
+    private JComboBox<String> crossCombo;
+    private JComboBox<String> mutationCombo;
+    private JComboBox<String> acceptanceCombo;
 
 
     protected AppWindow appWindow;
 
-    public GeneticAlgorithm(AppWindow appWindow, int populationSize, double crossoverRate, double mutationRate, double randomAcceptance, int numberOfInputs, double lowerBound, double upperBound) {
+    private GeneticAlgorithm(AppWindow appWindow, int populationSize, double crossoverRate, double mutationRate, double randomAcceptance, int numberOfInputs, double lowerBound, double upperBound) {
 
         this.appWindow = appWindow;
 
@@ -74,6 +75,7 @@ public abstract class GeneticAlgorithm extends JPanel implements Fitness, Runner
 
         chartPanel = new JPanel(new BorderLayout());
         GAHandler gaHandler = new GAHandler(appWindow);
+        GAMenuHandler gaMenuHandler = new GAMenuHandler(appWindow);
 
         run = new JButton("Run");
         GridBagConstraints searchConstraints = new GridBagConstraints();
@@ -101,6 +103,7 @@ public abstract class GeneticAlgorithm extends JPanel implements Fitness, Runner
         crossConstraints.gridx = 2;
         crossConstraints.gridy = 0;
         crossConstraints.weightx = 0.5;
+        crossCombo.addActionListener(gaMenuHandler);
         add(crossCombo, crossConstraints);
 
         String[] rateMutation = {"Mutation Rate: 0.075", "Mutation Rate: 0.085", "Mutation Rate: 0.095", "Mutation Rate: 0.15", "Mutation Rate: 0.25", "Mutation Rate: 0.35"};
@@ -110,6 +113,7 @@ public abstract class GeneticAlgorithm extends JPanel implements Fitness, Runner
         mutationConstraints.gridx = 3;
         mutationConstraints.gridy = 0;
         mutationConstraints.weightx = 0.5;
+        mutationCombo.addActionListener(gaMenuHandler);
         add(mutationCombo, mutationConstraints);
 
         String[] acceptanceRate = {"Acceptance Rate: 0.005", "Acceptance Rate: 0.01", "Acceptance Rate: 0.015", "Acceptance Rate: 0.020", "Acceptance Rate: 0.025", "Acceptance Rate: 0.030"};
@@ -119,6 +123,7 @@ public abstract class GeneticAlgorithm extends JPanel implements Fitness, Runner
         acceptanceConstraints.gridx = 4;
         acceptanceConstraints.gridy = 0;
         acceptanceConstraints.weightx = 0.5;
+        acceptanceCombo.addActionListener(gaMenuHandler);
         add(acceptanceCombo, acceptanceConstraints);
 
         /*
@@ -141,7 +146,7 @@ public abstract class GeneticAlgorithm extends JPanel implements Fitness, Runner
     }
 
     public GeneticAlgorithm(AppWindow appWindow, double lowerBound, double upperBound) {
-        this(appWindow, 20, 0.85, 0.075, 0.05, 2, lowerBound, upperBound);
+        this(appWindow, 20, 0.85, 0.075, 0.35, 2, lowerBound, upperBound);
     }
 
     public abstract double fitness(Individual individual);
@@ -192,7 +197,7 @@ public abstract class GeneticAlgorithm extends JPanel implements Fitness, Runner
         chart.getScene().add(scatter);
     }
 
-    public void setUpChart(){
+    private void setUpChart(){
         generateInitialPopulation();
         Mapper mapper = new Mapper() {
             public double f(double x, double y) {
@@ -217,7 +222,7 @@ public abstract class GeneticAlgorithm extends JPanel implements Fitness, Runner
         chartPanel.add((Component)chart.getCanvas(), BorderLayout.CENTER);
     }
 
-    public void generateInitialPopulation(){
+    private void generateInitialPopulation(){
         population = new LinkedList<>();
         scatter = new Scatter(generateRandomPoints(), new Color(0.0f, 0.0f, 0.0f), 5.0f);
         chart = new Chart(Quality.Nicest, "awt");
@@ -303,9 +308,17 @@ public abstract class GeneticAlgorithm extends JPanel implements Fitness, Runner
         String mutatedString = "";
         for(char ch : chromosomes[i].toCharArray()){
             if(ch == '0'){
-                mutatedString += "1";
+                if(Math.random() > 0.80) {
+                    mutatedString += "1";
+                } else {
+                    mutatedString += "0";
+                }
             } else {
-                mutatedString += "0";
+                if(Math.random() > 0.80) {
+                    mutatedString += "0";
+                } else {
+                    mutatedString += "1";
+                }
             }
         }
         chromosomes[i] = mutatedString;
@@ -328,12 +341,11 @@ public abstract class GeneticAlgorithm extends JPanel implements Fitness, Runner
         Individual firstSibling = new Individual(this);
         Individual secondSibling = new Individual(this);
 
-        int i = ThreadLocalRandom.current().nextInt(0 , numberOfInputs);
         String[] firstChromosomes = firstParent.breakUp();
         String[] secondChromosomes = secondParent.breakUp();
-        String temp = firstChromosomes[i];
-        firstChromosomes[i] = secondChromosomes[i];
-        secondChromosomes[i] = temp;
+        String temp = firstChromosomes[0];
+        firstChromosomes[0] = secondChromosomes[1];
+        secondChromosomes[1] = temp;
         firstSibling.makeUp(firstChromosomes);
         secondSibling.makeUp(secondChromosomes);
 
@@ -364,4 +376,15 @@ public abstract class GeneticAlgorithm extends JPanel implements Fitness, Runner
         return points;
     }
 
+    public void setCrossoverRate(double crossoverRate) {
+        this.crossoverRate = crossoverRate;
+    }
+
+    public void setMutationRate(double mutationRate) {
+        this.mutationRate = mutationRate;
+    }
+
+    public void setRandomAcceptance(double randomAcceptance) {
+        this.randomAcceptance = randomAcceptance;
+    }
 }

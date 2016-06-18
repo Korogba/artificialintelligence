@@ -19,11 +19,11 @@ public class Individual {
         fitnessCalculator = type;
     }
 
-    public Individual(Fitness type, String binaryCode) {
+/*    public Individual(Fitness type, String binaryCode) {
         this.binaryCode = binaryCode;
         fitnessCalculator = type;
         fitness = type.fitness(this);
-    }
+    }*/
 
     public Individual(Fitness type, List<Double> xValues) {
         fitnessCalculator = type;
@@ -35,7 +35,7 @@ public class Individual {
         fitness = fitnessCalculator.fitness(this);
     }
 
-    public Individual(Fitness type, double...xValues){
+/*    public Individual(Fitness type, double...xValues){
         fitnessCalculator = type;
         binaryCode = "";
         for(double xValue : xValues){
@@ -43,17 +43,17 @@ public class Individual {
             binaryCode += (bitRep + "|");
         }
         fitness = fitnessCalculator.fitness(this);
-    }
+    }*/
 
     public double getFitness() {
         return fitness;
     }
 
-    public String getBinaryCode() {
+/*    public String getBinaryCode() {
         return binaryCode;
-    }
+    }*/
 
-    public List<String> xValues(){
+    private List<String> xValues(){
         String[] chromosomes = breakUp();
         return Arrays.asList(chromosomes);
     }

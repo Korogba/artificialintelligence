@@ -24,9 +24,8 @@ public class AppWindow extends JFrame {
     private JMenuItem fast;
     private JTextField status;
     private JTabbedPane tabbedPane;
-    public static String title = "Artificial Intelligence";
-    public static String algorithmString;
-    public static String statusBar = "status";
+    private static String title = "Artificial Intelligence";
+    private static String algorithmString;
     public static int speed = 500;
     private SearchWindow searchWindow;
     private OptimizationWindow optimizationWindow;
@@ -127,6 +126,7 @@ public class AppWindow extends JFrame {
         /*
         * Set up status bar below
         */
+        String statusBar = "status";
         status = new JTextField(statusBar);
         status.setEditable(false);
         GridBagConstraints statusConstraints = new GridBagConstraints();
@@ -141,12 +141,12 @@ public class AppWindow extends JFrame {
         //callListeners();
     }
 
-    public void setAppropriateTitleAndStatus(String title) {
+    private void setAppropriateTitleAndStatus(String title) {
         changeTitle("Artificial Intelligence: " + title);
         changeStatus(title + " selected");
     }
 
-    public void setAppropriateTitleAndStatus(List<JRadioButton> algorithms, String defaultTitle) {
+    private void setAppropriateTitleAndStatus(List<JRadioButton> algorithms, String defaultTitle) {
         boolean flag = true;
         for(JRadioButton radioButton : algorithms){
             if(radioButton.isSelected()){
@@ -162,7 +162,7 @@ public class AppWindow extends JFrame {
         }
     }
 
-    public void setAppropriateTitleAndStatus(JTabbedPane tabbedPane, String defaultTitle) {
+    void setAppropriateTitleAndStatus(JTabbedPane tabbedPane, String defaultTitle) {
         GeneticAlgorithm selectedPane = (GeneticAlgorithm) tabbedPane.getSelectedComponent();
         String functionName = selectedPane.returnName();
         changeTitle(defaultTitle + ": " + functionName);

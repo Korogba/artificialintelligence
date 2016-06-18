@@ -7,7 +7,6 @@ import org.graphstream.graph.Edge;
 import org.graphstream.graph.Node;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -73,14 +72,32 @@ public class AStarAlgorithm extends AbstractGraphicSearch implements CostInterfa
        If h(n) is always lower than (or equal to) the cost of moving from n to the goal,
        then A* is guaranteed to find a shortest path. The lower h(n) is, the more node A* expands, making it slower. (What we want)
        Reference: http://theory.stanford.edu/~amitp/GameProgramming/Heuristics.html
+
+       Heuristic used normalizes the heuristic which is the difference in character to between 1 and 5.
+       This consistently underestimates the path to the goal but also gives an optimal solution.
+       Normalizing the data to a larger range of value results in a non-optimal solution for some peculiar searches
+       like node B to Q, but a faster and optimal search as less work is done for most other cases.
    */
-    public int heuristic(Node currentNode, Node goalNode) {
+    /*public int heuristic(Node currentNode, Node goalNode) {
         if(currentNode == goalNode) {
             return 0;
         }
         Character currentChar = currentNode.toString().charAt(0);
         Character goalChar = goalNode.toString().charAt(0);
         return Math.abs(Character.compare(currentChar, goalChar));
+    }*/
+
+    public int heuristic(Node currentNode, Node goalNode) {
+        if(currentNode == goalNode) {
+            return 0;
+        }
+        Character currentChar = currentNode.toString().charAt(0);
+        Character goalChar = goalNode.toString().charAt(0);
+        int initial = Math.abs(Character.compare(currentChar, goalChar));
+        int normalized = 1 + (((initial - 1) * 4)/19);
+        //System.out.println();
+        //System.out.println("Normalized: From " + currentChar + " to " + goalChar + "\t" + normalized);
+        return Math.abs(normalized);
     }
 
     @Override
@@ -105,7 +122,7 @@ public class AStarAlgorithm extends AbstractGraphicSearch implements CostInterfa
         @Override
         @Nullable
         protected Node publishNode(Node startNode, Node goalNode) {
-            PriorityQueue<Node> frontier = new PriorityQueue<>(5, (Comparator<Node>) (firstEdge, secondEdge) -> (costFunction(firstEdge) - costFunction(secondEdge)));
+            PriorityQueue<Node> frontier = new PriorityQueue<>(5, (firstEdge, secondEdge) -> (costFunction(firstEdge) - costFunction(secondEdge)));
             List<Node> visited = new LinkedList<>();
             frontier.add(startNode);
             while(!frontier.isEmpty()){

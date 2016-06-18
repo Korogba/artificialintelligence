@@ -25,15 +25,13 @@ public class NNWindow extends JPanel implements ViewerListener, Runner {
 
     private AppGraph appGraph;
     private ViewerPipe fromViewer;
-    private AppWindow appWindow;
 
     public NNWindow(AppWindow appWindow){
 
         super(new GridBagLayout());
 
         appGraph = new AppGraph();
-        this.appWindow = appWindow;
-        NNHandler nnHandler = new NNHandler(this, this.appWindow);
+        NNHandler nnHandler = new NNHandler(this, appWindow);
 
         textArea = new JTextArea("Results: ", 3, 0);
         textArea.setEditable(false);

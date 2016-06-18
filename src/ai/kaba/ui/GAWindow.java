@@ -18,7 +18,7 @@ public class GAWindow extends JPanel {
 
     private JTabbedPane chartPane;
 
-    public GAWindow(AppWindow appWindow){
+    GAWindow(AppWindow appWindow){
         super(new GridLayout(0, 1));
         chartPane = new JTabbedPane(JTabbedPane.LEFT);
 
@@ -47,7 +47,7 @@ public class GAWindow extends JPanel {
         return (GeneticAlgorithm) chartPane.getSelectedComponent();
     }
 
-    public JTabbedPane getChartPane() {
+    JTabbedPane getChartPane() {
         return chartPane;
     }
 }

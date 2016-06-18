@@ -33,7 +33,7 @@ public class TaskHandler extends SwingWorker<Void, List<Individual>> {
             geneticAlgorithm.getChart().getScene().add(geneticAlgorithm.getScatter());
             if(listIndex >= populationList.size()){
                 traversal.stop();
-                System.out.println("Final Coordinates: \n" + printCoordinates(geneticAlgorithm.getScatter().getData()));
+                System.out.println("Final Coordinates: \n" + printCoordinates(geneticAlgorithm.getScatter().getData()) + "\nEnd");
                 geneticAlgorithm.getAppWindow().changeStatus("Done Running " + geneticAlgorithm.returnName() + ".");
                 geneticAlgorithm.getAppWindow().disableExceptClear();
             }
@@ -67,7 +67,7 @@ public class TaskHandler extends SwingWorker<Void, List<Individual>> {
         }
         System.out.println("=====================================================================================================");
         geneticAlgorithm.getPopulation().sort((firstIndividual, secondIndividual) -> firstIndividual.getFitness() <= secondIndividual.getFitness() ? -1 : 1);
-        System.out.println("Best Fit: " + geneticAlgorithm.fitness(geneticAlgorithm.getPopulation().get(0)) + "\nEnd");
+        System.out.println("Best Fit: " + geneticAlgorithm.fitness(geneticAlgorithm.getPopulation().get(0)));
     }
 
     private String printCoordinates(Coord3d[] data) {

@@ -1,25 +1,20 @@
 package ai.kaba.machinelearning.ann;
 
-import ai.kaba.abstracts.interfaces.Runner;
 import ai.kaba.ui.AppWindow;
 import ai.kaba.ui.NNWindow;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.random.RandomDataGenerator;
-import org.graphstream.graph.Edge;
 import org.graphstream.graph.Graph;
-
-import javax.swing.*;
-import java.util.Objects;
 
 /**
  * Created by Yusuf on 4/25/2016
  */
 public class NeuralNet extends NNWindow {
 
-    protected RealMatrix w1;
-    protected RealMatrix w2;
+    private RealMatrix w1;
+    private RealMatrix w2;
 
     private RealMatrix z2;
     private RealMatrix z3;
@@ -78,19 +73,19 @@ public class NeuralNet extends NNWindow {
         ourGraph.getEdge("y3z").setAttribute("ui.label", y3[0]);
     }
 
-    public RealMatrix getW1() {
+/*    public RealMatrix getW1() {
         return w1;
     }
 
     public RealMatrix getW2() {
         return w2;
-    }
+    }*/
 
     public RealMatrix getyHat() {
         return yHat;
     }
 
-    public RealMatrix getDjDw1() {
+/*    public RealMatrix getDjDw1() {
         return djDw1;
     }
 
@@ -108,7 +103,7 @@ public class NeuralNet extends NNWindow {
 
     public RealMatrix getZ3() {
         return z3;
-    }
+    }*/
 
     public RealMatrix forward(RealMatrix xInput){
         z2 = xInput.multiply(w1);

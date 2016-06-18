@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 public class GAHandler implements ActionListener {
 
     private AppWindow appWindow;
+    private boolean toReset = false;
 
     public GAHandler(AppWindow appWindow) {
         this.appWindow = appWindow;
@@ -23,9 +24,13 @@ public class GAHandler implements ActionListener {
         GeneticAlgorithm current = appWindow.getGaWindow().getCurrent();
         if(actionEvent.getSource() == current.getSearch()){
             current.nextGen();
+            toReset = true;
         }
         if(actionEvent.getSource() == current.getClear()){
-            current.clearChart();
+            if(toReset) {
+                current.clearChart();
+                toReset = false;
+            }
             appWindow.allStatus(true);
         }
     }
