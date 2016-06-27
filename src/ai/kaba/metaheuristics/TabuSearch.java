@@ -157,8 +157,10 @@ public class TabuSearch extends MetaHeuristics {
                 int nextToCurrent = i + 1;
                 double currentDistance = euclideanDistance(currentTour.get(i), currentTour.get(j));
                 if(currentDistance < smallestDistance || smallestDistance == 0){
+                    if(smallestDistance != 0) {
+                        Collections.swap(currentTour, nextToCurrent, j);
+                    }
                     smallestDistance = currentDistance;
-                    Collections.swap(currentTour, nextToCurrent, j);
                 }
             }
         }

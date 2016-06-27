@@ -93,7 +93,7 @@ public class AppWindow extends JFrame {
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
         gaWindow = new GAWindow(this);
-        tabbedPane.addTab("Machine Learning", gaWindow);
+        tabbedPane.addTab("Genetic Algorithm", gaWindow);
         tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
 
         neuralNet = new NeuralNet(this);
@@ -110,7 +110,7 @@ public class AppWindow extends JFrame {
                 selectedComponent = (AbstractGraphWindow) tabbedPane.getSelectedComponent();
             }
             if(tabbedPane.getSelectedComponent().getClass().equals(GAWindow.class)){
-                setAppropriateTitleAndStatus(gaWindow.getChartPane(), "Machine Learning");
+                setAppropriateTitleAndStatus(gaWindow.getChartPane(), "Genetic Algorithm");
                 selectedComponent = gaWindow.getCurrent();
             }
             if(tabbedPane.getSelectedComponent().getClass().equals(NeuralNet.class)){

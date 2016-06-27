@@ -1,0 +1,55 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="ArtificialIntelligence:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ArtificialIntelligence_jar</output-path>
+    <root id="archive" name="ArtificialIntelligence.jar">
+      <element id="module-output" name="ArtificialIntelligence" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-math3/3.6.1/commons-math3-3.6.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/gs-ui-1.3/gs-ui-1.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/gs-ui-1.3/gs-ui-1.3-javadoc.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/gs-ui-1.3/gs-ui-1.3-sources.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/jama-1.0.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/JMathIO-1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/guava-14.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/org.jzy3d-0.9.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/JMathArray-1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/JMathPlot-1.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/ardor3d-core-0.9.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/ardor3d-jogl-0.9.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/ardor3d-math-0.9.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/ardor3d-savable-0.9.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/jogl-all-2.0.2-rc12.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/gluegen-rt-2.0.2-rc12.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/JMathPlot-1.0.1-javadoc.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/jogl-all-main-2.0.2-rc12.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/gluegen-rt-main-2.0.2-rc12.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/jogl-all-2.0.2-rc12-natives-linux-i586.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/jogl-all-2.0.2-rc12-natives-linux-amd64.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/jogl-all-2.0.2-rc12-natives-linux-armv6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/gluegen-rt-2.0.2-rc12-natives-linux-i586.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/jogl-all-2.0.2-rc12-natives-solaris-i586.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/jogl-all-2.0.2-rc12-natives-windows-i586.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/gluegen-rt-2.0.2-rc12-natives-linux-amd64.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/gluegen-rt-2.0.2-rc12-natives-linux-armv6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/jogl-all-2.0.2-rc12-natives-android-armv6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/jogl-all-2.0.2-rc12-natives-linux-armv6hf.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/jogl-all-2.0.2-rc12-natives-solaris-amd64.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/jogl-all-2.0.2-rc12-natives-windows-amd64.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/gluegen-rt-2.0.2-rc12-natives-solaris-i586.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/gluegen-rt-2.0.2-rc12-natives-windows-i586.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/gluegen-rt-2.0.2-rc12-natives-android-armv6.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/gluegen-rt-2.0.2-rc12-natives-linux-armv6hf.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/gluegen-rt-2.0.2-rc12-natives-solaris-amd64.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/gluegen-rt-2.0.2-rc12-natives-windows-amd64.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/jogl-all-2.0.2-rc12-natives-macosx-universal.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib/gluegen-rt-2.0.2-rc12-natives-macosx-universal.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/redist/annotations-java8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/gs-core-1.3/gs-core-1.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/gs-core-1.3/gs-core-1.3-javadoc.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/gs-core-1.3/gs-core-1.3-sources.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/gs-algo-1.3/gs-algo-1.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/gs-algo-1.3/gs-algo-1.3-javadoc.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Downloads/gs-algo-1.3/gs-algo-1.3-sources.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.4/commons-lang3-3.4.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

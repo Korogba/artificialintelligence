@@ -38,7 +38,7 @@ public class GAWindow extends JPanel {
         chartPane.addTab("Rosenbrock Function", rosenbrock);
         chartPane.setMnemonicAt(3, KeyEvent.VK_4);
 
-        chartPane.addChangeListener(changeEvent -> appWindow.setAppropriateTitleAndStatus(chartPane, "Machine Learning"));
+        chartPane.addChangeListener(changeEvent -> appWindow.setAppropriateTitleAndStatus(chartPane, "Genetic Algorithm"));
 
         add(chartPane);
     }

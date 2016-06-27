@@ -10,6 +10,23 @@ import org.graphstream.graph.Graph;
 
 /**
  * Created by Yusuf on 4/25/2016
+ * Forward propagate
+ *      initialize weights for input and hidden layers
+ *      for each neuron in the hidden layer
+ *			value = summation(weight * input) for every incoming input
+ *			output = activationFunction(value)
+ *		for each neuron in the output layer
+ *			value = summation(weight * input) for every incoming input
+ *			output = activationFunction(value)
+ * Backward propagate
+ *		do
+ *		    for every input set in training data
+ *			    Forward propagate(input set)
+ *			    calculate cost = 1/2(actual - expected)2
+ *			    calculate djDw1 for weights from input to hidden layer
+ *			    calculate djDw2 for weights from hidden layer to output layer
+ *			    update weights as
+ *		while (cost > 0.0001)
  */
 public class NeuralNet extends NNWindow {
 

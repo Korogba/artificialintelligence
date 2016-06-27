@@ -23,6 +23,7 @@ public class GAHandler implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         GeneticAlgorithm current = appWindow.getGaWindow().getCurrent();
         if(actionEvent.getSource() == current.getSearch()){
+            current.allStatus(false);
             current.nextGen();
             toReset = true;
         }
@@ -32,6 +33,7 @@ public class GAHandler implements ActionListener {
                 toReset = false;
             }
             appWindow.allStatus(true);
+            current.allStatus(true);
         }
     }
 

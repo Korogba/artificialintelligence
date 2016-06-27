@@ -27,12 +27,12 @@ import java.util.*;
  *              //At this point, do manipulations with current: Print to screen, add to search tree, add to search path or whatever
  *              if(current == goal)
  *                  return;
- *              for(Node siblings OF current)
- *                  if(sibling not visited)
- *                      sibling.level = i
- *                      addSiblingToLevel(sibling)
- *                      sibling.parent = current
- *                      next.add(sibling)
+ *              for(Node child OF current)
+ *                  if(child not visited)
+ *                      child.level = i
+ *                      addChildToLevel(child)
+ *                      child.parent = current
+ *                      next.add(child)
  *                      i++
  *                  endif
  *              endfor

@@ -31,6 +31,37 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by Yusuf on 4/4/2016
+ * Genetic Algorithm: Implemented in the evolve method
+ * parameters: None
+ *      initialize initialPopulation
+ *      sort initialPopulation in increasing order of fitness
+ *      initialize nextGeneration
+ *		eliteBoundary = 0.6 * population.length
+ *		nextGeneration.add(population.get(1))
+ *		nextGeneration.add(crossOver(population.get(0), population.getFirst(1)))
+ *		nextGeneration.add(crossOver(population.get(0), population.getFirst(2)))
+ *      while (nextGeneration.size() < population.size())
+ *          int i, j;
+ *          do
+ *               i = getInteger(0, eliteBoundary);
+ *               j = getInteger(0, eliteBoundary);
+ *          while(i == j);
+ *          Individual firstParent = population.get(i);
+ *          Individual secondParent = population.get(j);
+ *          offspring = doCrossOver(firstParent, secondParent);
+ *          doMutate(offspring);
+ *          nextGeneration.add(offspring);
+ *          if(nextGeneration.size() <= populationSize && randomAcceptance > Math.random()){
+ *              int k = getInteger(0, populationSize);
+ *              random = population.get(k);
+ *              mutate(random);
+ *              nextGeneration.add(random);
+ *          }
+ *          removeDuplicates(nextGeneration);
+ *          while(nextGeneration.size() > populationSize){
+ *              nextGeneration.remove(nextGeneration.size() - 1);
+ *          }
+ *      population = nextGeneration;
  */
 public abstract class GeneticAlgorithm extends JPanel implements Fitness, Runner {
 

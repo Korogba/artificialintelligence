@@ -49,7 +49,7 @@ public class Individual {
         return fitness;
     }
 
-/*    public String getBinaryCode() {
+    /*    public String getBinaryCode() {
         return binaryCode;
     }*/
 

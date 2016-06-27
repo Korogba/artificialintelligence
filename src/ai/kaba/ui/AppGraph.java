@@ -81,7 +81,7 @@ public class AppGraph {
         return viewer;
     }
 
-    protected String styleSheet =
+    private String styleSheet =
             "graph {"+
                     "fill-color: #FFFFFF;" +
                     "}"+

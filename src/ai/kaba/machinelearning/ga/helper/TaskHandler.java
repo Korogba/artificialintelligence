@@ -36,6 +36,7 @@ public class TaskHandler extends SwingWorker<Void, List<Individual>> {
                 System.out.println("Final Coordinates: \n" + printCoordinates(geneticAlgorithm.getScatter().getData()) + "\nEnd");
                 geneticAlgorithm.getAppWindow().changeStatus("Done Running " + geneticAlgorithm.returnName() + ".");
                 geneticAlgorithm.getAppWindow().disableExceptClear();
+                geneticAlgorithm.disableExceptClear();
             }
         }
     });
