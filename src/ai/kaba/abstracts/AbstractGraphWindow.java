@@ -19,13 +19,11 @@ public abstract class AbstractGraphWindow extends JPanel implements Runner {
     /*
     * Initialize gui components
     */
-    protected JButton clear;
+    private JButton clear;
     protected JButton search;
-    protected JPanel graphPanel = new JPanel(new GridLayout(1,1));
-    protected JPanel sideBar;
     protected AppGraph appGraph;
     protected AppWindow appWindow;
-    protected int algorithmIndex = -1;
+    private int algorithmIndex = -1;
     protected List<JRadioButton> algorithms;
 
     public AbstractGraphWindow (AppWindow appWindow) {
@@ -61,7 +59,7 @@ public abstract class AbstractGraphWindow extends JPanel implements Runner {
         /*
         * Set up SideBar
         */
-        sideBar = new JPanel();
+        JPanel sideBar = new JPanel();
         sideBar.setLayout(new GridLayout(0, 1));
         sideBar.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10), BorderFactory.createTitledBorder("Algorithms")));
         addButtons(sideBar);
@@ -83,6 +81,7 @@ public abstract class AbstractGraphWindow extends JPanel implements Runner {
         graphConstraints.weighty = 0.5;
         graphConstraints.gridwidth = GridBagConstraints.REMAINDER;
         graphConstraints.gridheight = GridBagConstraints.RELATIVE;
+        JPanel graphPanel = new JPanel(new GridLayout(1, 1));
         graphPanel.add(initGraphPanel());
         sideBarAndGraph.add(graphPanel, graphConstraints);
 
@@ -98,7 +97,7 @@ public abstract class AbstractGraphWindow extends JPanel implements Runner {
 
     }
 
-    protected void addButtons(JPanel sideBar){
+    private void addButtons(JPanel sideBar){
         initRadioButtons();
         ButtonGroup algorithmGroup = new ButtonGroup();
         RadioHandler radioHandler = new RadioHandler();
@@ -113,8 +112,14 @@ public abstract class AbstractGraphWindow extends JPanel implements Runner {
     protected abstract void initRadioButtons();
     protected abstract Component initGraphPanel();
     protected abstract ActionListener getHandler();
-    public abstract void allStatus(boolean flag);
     public abstract void disableExceptClear();
+
+    public void allStatus(boolean flag){
+        for(JRadioButton radioButton: algorithms){
+            radioButton.setEnabled(flag);
+        }
+    }
+
     /*
      * Getters
      */
@@ -142,7 +147,7 @@ public abstract class AbstractGraphWindow extends JPanel implements Runner {
         return algorithms;
     }
 
-    protected class RadioHandler implements ActionListener {
+    private class RadioHandler implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent actionEvent) {
             algorithms.stream().filter(radioButton -> radioButton == actionEvent.getSource()).forEach(radioButton -> {

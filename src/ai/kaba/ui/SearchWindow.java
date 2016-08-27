@@ -16,11 +16,11 @@ import java.util.LinkedList;
 public class SearchWindow extends AbstractGraphWindow {
 
     protected JButton start;
-    protected JButton goal;
+    private JButton goal;
     /*
      * Initialize gui components
      */
-    public SearchWindow(AppWindow appWindow){
+    SearchWindow(AppWindow appWindow){
         super(appWindow);
 
         start = new JButton("Set Start");
@@ -71,6 +71,7 @@ public class SearchWindow extends AbstractGraphWindow {
 
     @Override
     public void allStatus(boolean flag) {
+        super.allStatus(flag);
         getStart().setEnabled(flag);
         getGoal().setEnabled(flag);
         getClear().setEnabled(flag);

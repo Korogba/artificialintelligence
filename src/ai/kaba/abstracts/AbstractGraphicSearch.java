@@ -23,7 +23,7 @@ public abstract class AbstractGraphicSearch extends AbstractAlgorithm implements
     private Node startNode;
     private Node goalNode;
     private boolean executeTask;
-    protected Timer timer;
+    private Timer timer;
 
     public AbstractGraphicSearch(AppWindow appWindow) {
         super(appWindow);
@@ -147,7 +147,7 @@ public abstract class AbstractGraphicSearch extends AbstractAlgorithm implements
         protected abstract Node publishNode(Node start, Node goal);
     }
 
-    public void initializeTimer() {
+    private void initializeTimer() {
         timer = new Timer(AppWindow.speed, this);
     }
 
@@ -159,19 +159,19 @@ public abstract class AbstractGraphicSearch extends AbstractAlgorithm implements
 
     public abstract void sortEdges(List<Edge> edges, Node reference);
 
-    public boolean isExecuteTask() {
+    private boolean isExecuteTask() {
         return executeTask;
     }
 
-    public Timer getTimer() {
+    private Timer getTimer() {
         return timer;
     }
 
-    public Node getStartNode() {
+    protected Node getStartNode() {
         return startNode;
     }
 
-    public Node getGoalNode() {
+    protected Node getGoalNode() {
         return goalNode;
     }
 }

@@ -32,9 +32,9 @@ public class Main {
             });
         } catch (InterruptedException | InvocationTargetException e) {
             e.printStackTrace();
+        } finally {
+            AppWindow.callListeners();
         }
-
-        AppWindow.callListeners();
 
     }
 }

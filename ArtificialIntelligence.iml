@@ -57,11 +57,14 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file://$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib" />
+          <root url="file://C:/Development/working/lib" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="file://$USER_HOME$/Documents/Masters/Artificial Intelligence/Term Paper/code/PlotGraph/lib" recursive="false" />
+        <SOURCES>
+          <root url="file://C:/Development/working/lib" />
+        </SOURCES>
+        <jarDirectory url="file://C:/Development/working/lib" recursive="false" />
+        <jarDirectory url="file://C:/Development/working/lib" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
   </component>

@@ -47,7 +47,7 @@ public abstract class MetaHeuristics extends AbstractAlgorithm {
         getAppWindow().changeStatus("Running " + AppWindow.getAlgorithmString() + "...");
     }
 
-    protected void updateEdges(List<Node> nodeList, double color){
+    private void updateEdges(List<Node> nodeList, double color){
         while (graph.getEdgeCount() > 0) {
             graph.removeEdge(0);
         }

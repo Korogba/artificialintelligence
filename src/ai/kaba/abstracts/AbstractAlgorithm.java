@@ -11,12 +11,12 @@ import java.util.LinkedList;
  * Created by Yusuf on 3/8/2016
  * Abstract class to implement common methods of the algorithms
  */
-public abstract class AbstractAlgorithm implements Algorithm {
+abstract class AbstractAlgorithm implements Algorithm {
 
     private AppWindow appWindow;
-    protected LinkedList<Node> pathToGoal;
+    LinkedList<Node> pathToGoal;
 
-    public AbstractAlgorithm(AppWindow appWindow){
+    AbstractAlgorithm(AppWindow appWindow){
         this.appWindow = appWindow;
     }
 
@@ -30,7 +30,7 @@ public abstract class AbstractAlgorithm implements Algorithm {
         return appWindow;
     }
 
-    public LinkedList<Node> getPathToGoal() {
+    LinkedList<Node> getPathToGoal() {
         return pathToGoal;
     }
 

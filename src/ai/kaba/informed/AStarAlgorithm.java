@@ -114,7 +114,7 @@ public class AStarAlgorithm extends AbstractGraphicSearch implements CostInterfa
         return edgeCount;
     }
 
-    public int costFunction(Node currentNode){
+    private int costFunction(Node currentNode){
         return (heuristic(currentNode, getGoalNode()) + cost(currentNode, getStartNode()));
     }
 

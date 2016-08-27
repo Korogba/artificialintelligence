@@ -19,7 +19,7 @@ public class OptimizationWindow extends AbstractGraphWindow {
     /*
      * Initialize gui components
      */
-    public OptimizationWindow (AppWindow appWindow){
+    OptimizationWindow(AppWindow appWindow){
         super(appWindow);
     }
 
@@ -52,6 +52,7 @@ public class OptimizationWindow extends AbstractGraphWindow {
 
     @Override
     public void allStatus(boolean flag) {
+        super.allStatus(flag);
         getClear().setEnabled(flag);
         getSearch().setEnabled(flag);
     }

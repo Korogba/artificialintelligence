@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.regex.Pattern;
+import ai.kaba.ui.GAWindow;
 
 /**
  * Created by Yusuf on 6/17/2016
@@ -25,7 +26,8 @@ public class GAMenuHandler implements ActionListener{
         JComboBox comboBox = (JComboBox)actionEvent.getSource();
         String[] selected = parser.split((String)comboBox.getSelectedItem());
 
-        GeneticAlgorithm current = appWindow.getGaWindow().getCurrent();
+        GAWindow defaultWindow = appWindow.getGaWindow();
+        GeneticAlgorithm current = defaultWindow.getCurrent();
 
         if(selected[0].equalsIgnoreCase("CrossOver Rate")){
             current.setCrossoverRate(Double.parseDouble(selected[1]));

@@ -52,7 +52,7 @@ public class TabuSearch extends MetaHeuristics {
         new SearchTask().execute();
     }
 
-    protected class SearchTask extends MetaHeuristics.SearchTask {
+    private class SearchTask extends MetaHeuristics.SearchTask {
 
         @Override
         protected List<Node> doInBackground() throws Exception {

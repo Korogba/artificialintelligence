@@ -59,7 +59,7 @@ public class BFSAlgorithm extends AbstractGraphicSearch {
         return  new SearchTask();
     }
 
-    protected class SearchTask extends AbstractGraphicSearch.SearchTask{
+    private class SearchTask extends AbstractGraphicSearch.SearchTask{
         @Nullable
         @Override
         protected Node publishNode(Node start, Node goal){

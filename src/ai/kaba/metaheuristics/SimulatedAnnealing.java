@@ -57,7 +57,7 @@ public class SimulatedAnnealing extends MetaHeuristics {
         return returnList;
     }
 
-    protected class SearchTask extends MetaHeuristics.SearchTask {
+    private class SearchTask extends MetaHeuristics.SearchTask {
 
         @Override
         protected List<Node> doInBackground() throws Exception {
